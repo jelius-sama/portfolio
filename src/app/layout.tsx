@@ -6,6 +6,7 @@ import { About } from "@/constants/about-me";
 import { AppleImage } from "next/dist/lib/metadata/types/extra-types";
 import { headers } from "next/headers";
 import ENV from "@/root/env.mjs";
+import { Analytics } from "@vercel/analytics/react"
 
 export const startupImage: AppleImage[] = [
   { url: '/icons/apple-splash-2048-2732.jpg', media: '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)' },
@@ -126,6 +127,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="overflow-x-hidden antialiased">
+        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
