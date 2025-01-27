@@ -72,9 +72,9 @@ export async function metadata(): Promise<Metadata> {
     title: title,
     description: description,
 
-    verification: {
-      google: "nN9XoUQ0iPJuzGH3N0smDgbskckup13V7St6cbEDxTo",
-    },
+    // verification: {
+    //   google: "nN9XoUQ0iPJuzGH3N0smDgbskckup13V7St6cbEDxTo",
+    // },
 
     robots: "index, follow",
 
