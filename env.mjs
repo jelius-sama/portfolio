@@ -1,5 +1,5 @@
 const ENV = Object.freeze({
-    site: 'https://sato-kazuma.vercel.app',
+    site: 'https://jelius.vercel.app',
     routes: Object.freeze({
         portfolio: '/',
         links: '/links',

@@ -2,24 +2,24 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
-import PageLoading from "@/components/app/page-loading";
+import PageLoading from "@/components/layout/page-loading";
 import { ThemeToggle } from "@/components/theme-toggle";
-import LinksShareDialog from "@/components/app/links-share-dialog";
+import LinksShareDialog from "@/components/layout/links-share-dialog";
 import ErrorBoundary from "@/components/error";
-import Error from "@/components/app/error";
+import Error from "@/components/layout/error";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { NavLinks, PortfolioSections } from "@/constants/portfolio-sections";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
-// import user from '/assets/user.jpeg';
+// import user from '/assets/jelius.JPG';
 import { useRouter, usePathname } from "next/navigation";
 import { MenuIcon } from "lucide-react";
-import { Kazuma } from "@/constants/about-me";
+import { About } from "@/constants/about-me";
 import Image from "next/image";
 import ENV from "@/root/env.mjs";
 
 export default function NavigationMenu({ children }: { children: React.ReactNode; }) {
-    const user = '/assets/user.jpeg';
+    const user = '/assets/jelius.JPG';
 
     const scrollToSection = useScrollToSection();
     const pathname = usePathname();
@@ -83,7 +83,7 @@ export default function NavigationMenu({ children }: { children: React.ReactNode
                     <NavigationSheet />
                 </div>
                 <div id='header-title-container' className='z-30 cursor-pointer select-none' onClick={() => scrollToSection('hero')}>
-                    <p id='header-title' className={`tracking-tight inline font-semibold to-[#4B4B4B] from-[#FFFFFF] bg-clip-text text-transparent bg-gradient-to-b sm:!text-3xl lg:!text-3xl !text-3xl xl:!text-3xl md:!text-3xl`}>{Kazuma.name}</p>
+                    <p id='header-title' className={`tracking-tight inline font-semibold to-[#4B4B4B] from-[#FFFFFF] bg-clip-text text-transparent bg-gradient-to-b sm:!text-3xl lg:!text-3xl !text-3xl xl:!text-3xl md:!text-3xl`}>{About.name}</p>
                 </div>
                 <div className='absolute left-[16px] right-[16px] h-full flex justify-center items-center -z-10'>
                     {pathname === ENV.routes.links && (

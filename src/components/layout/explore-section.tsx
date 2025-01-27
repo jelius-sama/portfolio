@@ -5,10 +5,10 @@ import { ChevronDownIcon } from 'lucide-react';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
 import Title from '@/components/ui/title';
 import { CheckmarkIcon } from '@/icons/checkmark';
-import { Kazuma } from '@/constants/about-me';
-import { Field } from '@/types/kazuma';
+import { About } from '@/constants/about-me';
+import { Field } from '@/types/about';
 import { Card, CardContent } from '@/components/ui/card';
-import SectionTitle from "@/components/app/section-title";
+import SectionTitle from "@/components/layout/section-title";
 
 export default function ExploreSection() {
     const scrollToSection = useScrollToSection();
@@ -19,7 +19,7 @@ export default function ExploreSection() {
 
             <div className='flex flex-col md:flex-row justify-center gap-x-20 items-center'>
                 <div className='flex flex-col md:flex-row w-full'>
-                    {Object.keys(Kazuma.explore).map((category) => {
+                    {Object.keys(About.explore).map((category) => {
                         // Cast category to Field to avoid the indexing error
                         const typedCategory = category as Field;
                         return (
@@ -27,7 +27,7 @@ export default function ExploreSection() {
                                 <CardContent>
                                     <Title color='blue' varient='subtitle' fullWidth={true} className={`!text-[1rem] md:!text-xl my-2 text-center`}>{category}</Title>
                                     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-2'>
-                                        {Kazuma.explore[typedCategory]?.map((tech, index) => (
+                                        {About.explore[typedCategory]?.map((tech, index) => (
                                             <span key={index} className='flex flex-row items-center gap-x-4 my-4'>
                                                 <span className='w-[32px]'><CheckmarkIcon /></span>
                                                 <span className='flex-1 flex flex-col overflow-hidden'>

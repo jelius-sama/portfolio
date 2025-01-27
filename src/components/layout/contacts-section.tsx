@@ -1,11 +1,11 @@
 'use client';
 
-import SectionTitle from "@/components/app/section-title";
+import SectionTitle from "@/components/layout/section-title";
 import { Button } from "@/components/ui/button";
 import { ChevronUpIcon, MailIcon } from "lucide-react";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
 import { Card, CardContent } from "@/components/ui/card";
-import { Kazuma } from "@/constants/about-me";
+import { About } from "@/constants/about-me";
 import X from '@/icons/x';
 import { LinkedInLogoIcon } from '@radix-ui/react-icons';
 import Footer from './footer';
@@ -14,7 +14,7 @@ import Image from "next/image";
 
 export default function ContactsSection() {
     const scrollToSection = useScrollToSection();
-    const user = '/assets/user.jpeg';
+    const user = '/assets/jelius.JPG';
 
     return (
         <section id="contacts" className="min-h-screen w-full relative pb-[calc(64px_+_16px)] pt-[64px]">
@@ -23,7 +23,7 @@ export default function ContactsSection() {
                 <Card className="w-full md:w-auto">
                     <CardContent className="flex items-center justify-center p-0">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                            {Object.entries(Kazuma.contact_options).map(([key, value]) => (
+                            {Object.entries(About.contact_options).map(([key, value]) => (
                                 <div key={key} className="flex items-center justify-start">
                                     {key === 'gmail' && (
                                         <Link href={value} className="flex flex-row gap-x-2 items-center h-auto p-6 justify-center text-primary underline-offset-4 hover:underline">

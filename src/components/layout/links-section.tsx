@@ -1,12 +1,12 @@
 'use client';
 
-import Footer from "@/components/app/footer";
-import { Kazuma } from "@/constants/about-me";
+import Footer from "@/components/layout/footer";
+import { About } from "@/constants/about-me";
 import Image from "next/image";
 import { useState, useEffect } from 'react';
 
 export default function LinksSection() {
-    const user = '/assets/user.jpeg';
+    const user = '/assets/jelius.JPG';
 
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const [isMobile, setIsMobile] = useState(false);
@@ -108,12 +108,12 @@ export default function LinksSection() {
 
                 <div className='w-full mb-[64px]'>
                     <div className='w-full flex items-center justify-center flex-col gap-y-4'>
-                        <Image alt="Kazuma-kun" width={100} height={100} id='links_profile_pic' src={user} className="w-20 h-20 md:w-24 md:h-24 rounded-full" />
-                        <p className="text-center font-semibold text-2xl md:text-3xl !text-white">{Kazuma.name}</p>
+                        <Image alt={`${About.nickName}`} width={100} height={100} id='links_profile_pic' src={user} className="w-20 h-20 md:w-24 md:h-24 rounded-full" />
+                        <p className="text-center font-semibold text-2xl md:text-3xl !text-white">{About.name}</p>
                     </div>
 
                     <div className='small-container flex flex-col items-center justify-center mt-5'>
-                        {Kazuma.social_links.map((link, index) => (
+                        {About.social_links.map((link, index) => (
                             <a
                                 key={index}
                                 href={link.link}

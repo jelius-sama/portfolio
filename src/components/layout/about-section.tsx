@@ -1,6 +1,6 @@
 'use client';
 
-import { Kazuma } from '@/constants/about-me';
+import { About } from '@/constants/about-me';
 import { Button } from '@/components/ui/button';
 import { ChevronDownIcon } from 'lucide-react';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
@@ -9,12 +9,12 @@ import Education from '@/icons/education';
 import Experience from '@/icons/experience';
 import { Card, CardContent } from '@/components/ui/card';
 import React from 'react';
-import SectionTitle from '@/components/app/section-title';
+import SectionTitle from '@/components/layout/section-title';
 import Image from 'next/image';
 
 export default function AboutSection() {
     const scrollToSection = useScrollToSection();
-    const user = '/assets/user.jpeg';
+    const user = '/assets/jelius.JPG';
 
     return (
         <section id='about' className="w-full min-h-screen relative pb-[calc(64px_+_16px)] pt-[64px]"> {/* "pb-[calc(10px_+_16px_+_16px_+_16px_+10px)]" */}
@@ -25,7 +25,7 @@ export default function AboutSection() {
                     <Image
                         width={400}
                         height={400}
-                        alt='Kazuma-kun'
+                        alt={`${About.nickName}`}
                         src={user}
                         className='w-full h-full max-h-52 max-w-52 sm:max-h-72 sm:max-w-72 lg:max-h-80 lg:max-w-80 xl:max-h-96 xl:max-w-96 aspect-square rounded-3xl'
                     />
@@ -52,8 +52,8 @@ function AboutMeCard() {
                     <Experience />
                     <Title color='yellow' varient='subtitle' fullWidth={true} className={`!text-[1rem] md:!text-xl my-2 text-center`}>Experience</Title>
 
-                    <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(Kazuma.experience[0].timespan) + '+ years'}</Title>
-                    <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(Kazuma.experience[0].field)}</Title>
+                    <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(About.experience[0].timespan) + '+ years'}</Title>
+                    <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(About.experience[0].field)}</Title>
                 </CardContent>
             </Card>
 
@@ -63,7 +63,7 @@ function AboutMeCard() {
                     <Title color='yellow' varient='subtitle' fullWidth={true} className={`!text-[1rem] md:!text-xl my-2 text-center`}>Education</Title>
 
                     <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>Student of</Title>
-                    <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(Kazuma.education)}</Title>
+                    <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(About.education)}</Title>
                 </CardContent>
             </Card>
         </div>
@@ -73,14 +73,14 @@ function AboutMeCard() {
 function SpeechAndQuote() {
     return (
         <React.Fragment>
-            {Kazuma.speech.map((s, index) => (
+            {About.speech.map((s, index) => (
                 <p key={index} className='mt-5 text-justify'>
                     {s}
                 </p>
             ))}
 
-            {Kazuma.quote.map((q, index) => (
-                <p key={index} className='mt-5 italic font-semibold text-justify'>&quot;{q}&quot; - Kazuma kun</p>
+            {About.quote.map((q, index) => (
+                <p key={index} className='mt-5 italic font-semibold text-justify'>&quot;{q}&quot; - ${About.nickName}</p>
             ))}
         </React.Fragment>
     );

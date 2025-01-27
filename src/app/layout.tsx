@@ -1,8 +1,8 @@
-import NavigationMenu from "@/components/app/navigation-menu";
+import NavigationMenu from "@/components/layout/navigation-menu";
 import type { Metadata, Viewport } from "next";
 import "@/app/globals.css";
 import { ThemeProvider } from "@/providers/theme";
-import { Kazuma } from "@/constants/about-me";
+import { About } from "@/constants/about-me";
 import { AppleImage } from "next/dist/lib/metadata/types/extra-types";
 import { headers } from "next/headers";
 import ENV from "@/root/env.mjs";
@@ -54,27 +54,23 @@ export async function metadata(): Promise<Metadata> {
   const isPortfolioPage = pathname === ENV.routes.portfolio;
 
   const title = isLinksPage
-    ? `Links - ${Kazuma.name}`
+    ? `Links | ${About.nickName}`
     : isPortfolioPage
-      ? `Portfolio - ${Kazuma.name}`
+      ? `Portfolio | ${About.nickName}`
       : {
-        default: Kazuma.name,
-        template: `%s - ${Kazuma.name}`,
+        default: `${About.nickName}`,
+        template: `%s | ${About.nickName}`,
       };
-  const description = isLinksPage ? Kazuma.linksDescription : Kazuma.description;
-  const applicationName = Kazuma.name;
-  const icon = `${probableURL}/assets/user.jpeg`;
+  const description = isLinksPage ? About.linksDescription : About.description;
+  const applicationName = About.name;
+  const icon = `${probableURL}/assets/jelius.JPG`;
   const appleIcon = `${probableURL}/icons/apple-icon-180.png`;
-  const twitterHandle = '@OtakuBoy00701';
+  const twitterHandle = `${About.xHandle}`;
 
   return {
     applicationName: applicationName,
     title: title,
     description: description,
-
-    verification: {
-      google: "YMnaznJTdKYFrfqZtxmMxUTEnlb2x44NOkH_osiN66E",
-    },
 
     robots: "index, follow",
 

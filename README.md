@@ -1,4 +1,4 @@
-# Kazuma's Portfolio
+# Jelius's Portfolio
 
 This repository contains the code for my personal portfolio website, built using modern web technologies including Next.JS, Tailwind CSS, Shadcn UI, and Bun.
 
@@ -45,7 +45,7 @@ To run this project locally, you'll need Bun installed. You can install it from 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/sato-kazuma/portfolio.git
+git clone https://github.com/jelius-sama/portfolio.git
 cd portfolio
 ```
 
@@ -78,7 +78,7 @@ The project uses __Tailwind CSS__ for styling and __Shadcn UI__ for components. 
 
 ### 🔗 Social Media Links
 
-Check out my social media profiles [here](https://sato-kazuma.vercel.app/links).
+Check out my social media profiles [here](https://jelius.vercel.app/links).
 
 ### 📝 License
 

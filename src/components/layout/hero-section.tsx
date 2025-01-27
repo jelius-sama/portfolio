@@ -1,6 +1,6 @@
 'use client';
 
-import { Kazuma } from '@/constants/about-me';
+import { About } from '@/constants/about-me';
 import { Button } from '@/components/ui/button';
 import useExternalNavigate from '@/hooks/useExternalNavigation';
 import { ChevronDownIcon } from 'lucide-react';
@@ -15,7 +15,7 @@ export default function HeroSection() {
     const scrollToSection = useScrollToSection();
     const { theme, systemTheme } = useTheme();
 
-    const user = '/assets/user.jpeg';
+    const user = '/assets/jelius.JPG';
     const githubDark = '/assets/github-mark-white.png';
     const githubWhite = '/assets/github-mark.png';
 
@@ -23,7 +23,7 @@ export default function HeroSection() {
         <section id='hero' className="min-h-screen w-full items-center flex flex-col md:flex-row justify-center gap-x-20 relative">
             <div>
                 <Image
-                    alt='Kazuma-kun'
+                    alt={`${About.nickName}`}
                     width={400}
                     height={400}
                     src={user}
@@ -33,13 +33,13 @@ export default function HeroSection() {
 
             <div className='flex flex-nowrap flex-col items-center justify-center pt-4 md:pt-0'>
                 <Title varient='info' className='text-center'>Hello , I&apos;m</Title>
-                <Title varient='title' fullWidth color='pink' className={`text-center`}>{Kazuma.name}</Title>
-                <Title varient='subtitle' className={`text-center`}>{Kazuma.profession}</Title>
+                <Title varient='title' fullWidth color='pink' className={`text-center`}>{About.name}</Title>
+                <Title varient='subtitle' className={`text-center`}>{About.profession}</Title>
                 <span className='mt-4 mb-2 flex flex-row gap-x-2'>
                     <Button onClick={() => { toast('CV not available.'); }} className='rounded-full px-6 py-6 border-[2px]' variant='outline' aria-label='Download CV'><p className='font-semibold'>Download CV</p></Button>
                     <Button onClick={() => scrollToSection('contacts')} className='rounded-full px-6 py-6 border-[2px] border-transparent' variant='default' aria-label='Contact info'><p className='font-semibold'>Contact Info</p></Button>
                 </span>
-                <Button onClick={() => externalNavigate('https://github.com/sato-kazuma-kun', { external: true, newTab: true })} variant='ghost' className='rounded-full w-12 h-12 p-0 py-0 px-0' aria-label='Visit my github'>
+                <Button onClick={() => externalNavigate(`${About.github}`, { external: true, newTab: true })} variant='ghost' className='rounded-full w-12 h-12 p-0 py-0 px-0' aria-label='Visit my github'>
                     <Image width={40} height={40} alt='Github' src={theme === 'dark' ? githubDark : theme === 'light' ? githubWhite : systemTheme !== undefined ? systemTheme === 'dark' ? githubDark : githubWhite : githubDark} className='p-2 w-10 h-10' />
                 </Button>
             </div>

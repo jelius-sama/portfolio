@@ -9,10 +9,11 @@ export type Explore = {
     level: "Experienced" | "Intermediate" | "Beginner";
 };
 
-export interface Kazuma {
-    name: string,
-    description: string,
-    linksDescription: string,
+export interface About {
+    name: string;
+    nickName?: string;
+    description: string;
+    linksDescription: string;
     profession: Profession;
     education: string;
     experience: {
@@ -38,6 +39,8 @@ export interface Kazuma {
         linkedin?: string;
         links: string;
     };
+    github?: string;
+    xHandle?: string;
     social_links: {
         icon: { dark: string, light: string; };
         title: string;

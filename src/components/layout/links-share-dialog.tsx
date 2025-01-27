@@ -7,7 +7,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
-import { Kazuma } from '@/constants/about-me';
+import { About } from '@/constants/about-me';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { copyString } from '@/utils';
 import Image from 'next/image';
@@ -21,7 +21,7 @@ type ShareProps = {
 }[];
 
 const ShareURL = ENV.site + ENV.routes.links;
-const ShareText = 'Check out Kazuma\'s social media profiles';
+const ShareText = 'Check out Jelius\'s social media profiles';
 
 const SHARE: ShareProps = [
     {
@@ -97,20 +97,20 @@ export default function LinksShareDialog() {
 }
 
 function ShareForm({ className }: React.ComponentProps<"section">) {
-    const user = '/assets/user.jpeg';
+    const user = '/assets/jelius.JPG';
 
     return (
         <section className={cn("", className)}>
             <div className="flex flex-col gap-y-8">
                 <div className='bg-[#342a2b] flex flex-col items-center justify-center rounded-md py-8 gap-y-4'>
                     <Image
-                        alt='Kazuma-kun'
+                        alt={`${About.nickName}`}
                         height={80}
                         width={80}
                         src={user}
                         className='w-20 h-20 rounded-full'
                     />
-                    <p className="text-center font-semibold text-2xl md:text-3xl !text-white">{Kazuma.name}</p>
+                    <p className="text-center font-semibold text-2xl md:text-3xl !text-white">{About.name}</p>
                 </div>
 
                 <div className='flex items-center justify-center'>

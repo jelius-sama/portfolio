@@ -1,10 +1,11 @@
 import ENV from "@/root/env.mjs";
-import { Kazuma as KazumaInterface } from "@/types/kazuma";
+import { About as AboutInterface } from "@/types/about";
 
-export const Kazuma: KazumaInterface = {
-    name: "Kazuma Satō",
+export const About: AboutInterface = {
+    name: "Jelius Basumatary",
+    nickName: "Jelius-sama",
     description: "A showcase of my expertise in Fullstack Web and App development, featuring functional and visually appealing applications. This site showcases my skills, adaptability, and dedication to continuous learning and improvement in modern web and app development practices.",
-    linksDescription: "A personalized hub showcasing all of Kazuma's social media profiles and key links.",
+    linksDescription: "A personalized hub showcasing all of Jelius's social media profiles and key links.",
     profession: "Student",
     education: "St. John's H.S. School, Barama",
     experience: [
@@ -61,18 +62,20 @@ export const Kazuma: KazumaInterface = {
         }
     ],
     contact_options: {
-        gmail: 'mailto:otaku.satoukazuma.002@gmail.com',
+        gmail: 'mailto:jelius.basumatary.sama@gmail.com',
         links: ENV.routes.links,
-        x: 'https://x.com/@OtakuBoy00701',
-        linkedin: 'https://www.linkedin.com/in/kazuma-sato-348b792b5/'
+        x: 'https://x.com/jelius_sama',
+        linkedin: 'https://www.linkedin.com/in/jelius-basumatary-485044339/'
     },
+    github: "https://github.com/jelius-sama",
+    xHandle: "@jelius_sama",
     social_links: [
-        { icon: { light: '/assets/twitter.png', dark: '/assets/twitter.png' }, title: 'X', link: 'https://x.com/@OtakuBoy00701' },
-        { icon: { light: '/assets/Instagram_icon.webp', dark: '/assets/Instagram_icon.webp' }, title: 'Instagram', link: 'https://www.instagram.com/__kana.arima' },
-        { icon: { light: '/assets/Instagram_icon.webp', dark: '/assets/Instagram_icon.webp' }, title: 'Instagram (Personal)', link: 'https://www.instagram.com/_kazuma_sama' },
-        { icon: { light: '/assets/facebook(1).png', dark: '/assets/facebook(1).png' }, title: 'Facebook', link: 'https://www.facebook.com/satou.kazu.kun' },
+        { icon: { light: '/assets/twitter.png', dark: '/assets/twitter.png' }, title: 'X', link: 'https://x.com/jelius_sama' },
+        // { icon: { light: '/assets/Instagram_icon.webp', dark: '/assets/Instagram_icon.webp' }, title: 'Instagram', link: 'https://www.instagram.com/__kana.arima' },
+        // { icon: { light: '/assets/Instagram_icon.webp', dark: '/assets/Instagram_icon.webp' }, title: 'Instagram (Personal)', link: 'https://www.instagram.com/_kazuma_sama' },
+        // { icon: { light: '/assets/facebook(1).png', dark: '/assets/facebook(1).png' }, title: 'Facebook', link: 'https://www.facebook.com/satou.kazu.kun' },
         { icon: { light: '/assets/youtube.png', dark: '/assets/youtube.png' }, title: 'YouTube', link: 'https://www.youtube.com/@_kazuma-kun' },
-        { icon: { light: '/assets/github-mark.png', dark: '/assets/github-mark.png' }, title: 'Github', link: 'https://github.com/sato-kazuma-kun' },
-        { icon: { light: '/assets/linkedin-icon.png', dark: '/assets/linkedin-icon.png' }, title: 'LinkedIn', link: 'https://www.linkedin.com/in/kazuma-sato-348b792b5/' },
+        { icon: { light: '/assets/github-mark.png', dark: '/assets/github-mark.png' }, title: 'Github', link: 'https://github.com/jelius-sama' },
+        { icon: { light: '/assets/linkedin-icon.png', dark: '/assets/linkedin-icon.png' }, title: 'LinkedIn', link: 'https://www.linkedin.com/in/jelius-basumatary-485044339/' },
     ]
 };
