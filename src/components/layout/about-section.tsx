@@ -52,7 +52,7 @@ function AboutMeCard() {
                     <Experience />
                     <Title color='yellow' varient='subtitle' fullWidth={true} className={`!text-[1rem] md:!text-xl my-2 text-center`}>Experience</Title>
 
-                    <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(About.experience[0].timespan) + '+ years'}</Title>
+                    <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(new Date().getFullYear() - About.experience[0].timespan) + '+ years'}</Title>
                     <Title varient='info' className='!font-medium !text-lg !text-ellipsis !line-clamp-1 text-center' fullWidth={true}>{String(About.experience[0].field)}</Title>
                 </CardContent>
             </Card>
@@ -72,16 +72,12 @@ function AboutMeCard() {
 
 function SpeechAndQuote() {
     return (
-        <React.Fragment>
-            {About.speech.map((s, index) => (
-                <p key={index} className='mt-5 text-justify'>
-                    {s}
-                </p>
-            ))}
+        <React.Fragment>    
+            <p className='mt-5 leading-8 text-justify'>
+                {About.speech}
+            </p>
 
-            {About.quote.map((q, index) => (
-                <p key={index} className='mt-5 italic font-semibold text-justify'>&quot;{q}&quot; - ${About.nickName}</p>
-            ))}
+            <p className='mt-5 italic font-semibold text-justify'>&quot;{About.quote}&quot; - {About.nickName}</p>
         </React.Fragment>
     );
 }

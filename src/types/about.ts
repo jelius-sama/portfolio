@@ -1,4 +1,4 @@
-export type TechStack = "ReactJS" | "NextJS" | "React Native" | "Svelte" | "Svelte Kit" | "Javascript" | "Typescript" | "C++" | "Swift" | "Rust" | "Dart" | "Flutter" | "Ruby" | "Python" | "C#" | "Unity Engene" | "Unreal Engene" | "Java" | "Kotlin" | "SwiftUI" | "MongoDB" | "Postgress" | "MySQL" | "SQL Lite" | "Git" | "CSS" | "HTML" | "Vapor" | "NodeJS" | "C";
+export type TechStack = "Postgres" |  "ReactJS" | "NextJS" | "React Native" | "Svelte" | "Svelte Kit" | "Javascript" | "Typescript" | "C++" | "Swift" | "Rust" | "Dart" | "Flutter" | "Ruby" | "Python" | "C#" | "Unity Engene" | "Unreal Engene" | "Java" | "Kotlin" | "SwiftUI" | "MongoDB" | "Postgress" | "MySQL" | "SQL Lite" | "Git" | "CSS" | "HTML" | "Vapor" | "NodeJS" | "C";
 
 export type Profession = "Student" | "Software Developer" | "Software Engineer" | "Fullstack Developer" | "Frontend Developer" | "Backend Developer";
 
@@ -21,8 +21,8 @@ export interface About {
         field: Field;
     }[];
     dob: Date;
-    speech: string[];
-    quote: string[];
+    speech: string;
+    quote: string;
     explore: {
         [K in Field]?: Explore[];
     };

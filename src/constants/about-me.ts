@@ -10,38 +10,30 @@ export const About: AboutInterface = {
     education: "St. John's H.S. School, Barama",
     experience: [
         {
-            timespan: 2,
+            timespan: 2022,
             field: "Fullstack Development"
         }
     ],
     dob: new Date("2006-11-26"),
-    speech: [
-        "Konnichiwa! I'm Kazuma-kun, a student at St. John's H.S. School in Barama, Assam. I've proudly passed my HSLC exams, but my true passion lies in the enchanting realm of anime and all things otaku!",
-        "As a devoted weeb, I've immersed myself in the captivating stories, vibrant characters, and awe-inspiring worlds that anime has to offer. From epic shounen battles to heartwarming slice-of-life tales, I've explored a vast range of genres and discovered hidden gems along the way. ",
-        "When I'm not indulging in the latest anime releases, you'll often find me immersed in the world of programming. As a self-proclaimed computer nerd, I love tinkering with code, building apps, and bringing my own creative ideas to life. My ultimate goal is to create the perfect waifuu AI, a digital companion that embodies all the qualities of my favorite anime characters. ",
-        "But that's not all! I have a burning desire to travel to the land of anime itself: Japan. I dream of immersing myself in the rich culture, exploring vibrant cityscapes, and meeting fellow otakus who share my passion. One day, I hope to settle down in Japan and embrace the anime-filled life that awaits me there. ",
-        "Join me on this incredible journey through Anime World, where I'll be sharing my thoughts, recommendations, and insights into the captivating realm of anime. Together, let's celebrate our shared love for this art form, connect with fellow fans, and uncover the next masterpiece that will touch our hearts. ",
-    ],
-    quote: [
-        "In this vast universe, let's embrace the endless possibilities and let our dreams take flight!"
-    ],
+    speech: "Programming is the art of transforming ideas into functional, impactful solutions. With expertise in Next.js and full-stack development, I combine technical precision with creative problem-solving to craft applications that deliver seamless user experiences. Every project is an opportunity to innovate, refine, and exceed expectations. My work reflects a commitment to efficiency, scalability, and attention to detail. Whether it's designing dynamic interfaces or building robust backend systems, I thrive on creating meaningful results. Explore my portfolio to discover how I turn challenges into opportunities and concepts into reality.",
+    quote: "Code is more than logic—it's creativity in motion, transforming ideas into experiences that inspire and empower.",    
     explore: {
         'Frontend Development': [
-            { technology: "ReactJS", level: "Intermediate" },
-            { technology: "React Native", level: "Intermediate" },
-            { technology: "NextJS", level: "Intermediate" },
-            { technology: "Svelte Kit", level: "Intermediate" },
-            { technology: "Svelte", level: "Intermediate" },
+            { technology: "ReactJS", level: "Experienced" },
+            { technology: "React Native", level: "Experienced" },
+            { technology: "NextJS", level: "Experienced" },
+            { technology: "Svelte Kit", level: "Experienced" },
+            { technology: "Svelte", level: "Experienced" },
         ],
         'Backend Development': [
             { technology: "NodeJS", level: "Beginner" },
-            { technology: "MongoDB", level: "Beginner" },
+            { technology: "Postgres", level: "Intermediate" },
         ],
         'Software Development': [
             { technology: 'Rust', level: 'Beginner' },
             { technology: 'C++', level: 'Beginner' },
-            { technology: 'Typescript', level: 'Intermediate' },
-            { technology: 'Javascript', level: 'Intermediate' },
+            { technology: 'Typescript', level: 'Experienced' },
+            { technology: 'Javascript', level: 'Experienced' },
             { technology: 'Swift', level: 'Beginner' }
         ]
     },

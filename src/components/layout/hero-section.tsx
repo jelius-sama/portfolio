@@ -33,7 +33,7 @@ export default function HeroSection() {
 
             <div className='flex flex-nowrap flex-col items-center justify-center pt-4 md:pt-0'>
                 <Title varient='info' className='text-center'>Hello , I&apos;m</Title>
-                <Title varient='title' fullWidth color='pink' className={`text-center`}>{About.name}</Title>
+                <Title varient='title' fullWidth color='pink' className={`text-center !leading-[70px]`}>{About.name}</Title>
                 <Title varient='subtitle' className={`text-center`}>{About.profession}</Title>
                 <span className='mt-4 mb-2 flex flex-row gap-x-2'>
                     <Button onClick={() => { toast('CV not available.'); }} className='rounded-full px-6 py-6 border-[2px]' variant='outline' aria-label='Download CV'><p className='font-semibold'>Download CV</p></Button>

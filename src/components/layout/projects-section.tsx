@@ -11,7 +11,7 @@ export default function ProjectsSection() {
 
     return (
         <section id="projects" className="min-h-screen w-full relative pb-[calc(64px_+_16px)] pt-[64px]"> {/* "pb-[calc(10px_+_16px_+_16px_+_16px_+10px)]" */}
-            <SectionTitle info={"Browse My Recent"} title={"Projects"} />
+            <SectionTitle info={"Browse My Recent"} title={"Projects"} classNames={{title: "!leading-[70px]"}} />
             <div className="flex items-center h-full justify-center">
                 <Title varient={"subtitle"} className="text-center underline">No Projects</Title>
             </div>
