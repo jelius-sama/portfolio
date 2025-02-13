@@ -11,6 +11,11 @@ export default $config({
     };
   },
   async run() {
-    new sst.aws.Nextjs("Portfolio");
+    new sst.aws.Nextjs("Portfolio", {
+      domain: {
+        name: "jelius.dev",
+        aliases: ["www.jelius.dev"]
+      }
+    });
   },
 });
