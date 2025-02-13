@@ -43,3 +43,10 @@ next-env.d.ts
 /public/robots.txt
 /public/sw.js
 /public/sw.js.map
+
+# sst
+.sst
+
+
+# open-next
+.open-next

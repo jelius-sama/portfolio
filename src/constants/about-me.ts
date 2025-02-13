@@ -16,7 +16,7 @@ export const About: AboutInterface = {
     ],
     dob: new Date("2006-11-26"),
     speech: "Programming is the art of transforming ideas into functional, impactful solutions. With expertise in Next.js and full-stack development, I combine technical precision with creative problem-solving to craft applications that deliver seamless user experiences. Every project is an opportunity to innovate, refine, and exceed expectations. My work reflects a commitment to efficiency, scalability, and attention to detail. Whether it's designing dynamic interfaces or building robust backend systems, I thrive on creating meaningful results. Explore my portfolio to discover how I turn challenges into opportunities and concepts into reality.",
-    quote: "Code is more than logic—it's creativity in motion, transforming ideas into experiences that inspire and empower.",    
+    quote: "Code is more than logic—it's creativity in motion, transforming ideas into experiences that inspire and empower.",
     explore: {
         'Frontend Development': [
             { technology: "ReactJS", level: "Experienced" },
@@ -30,7 +30,7 @@ export const About: AboutInterface = {
             { technology: "Postgres", level: "Intermediate" },
         ],
         'Software Development': [
-            { technology: 'Rust', level: 'Beginner' },
+            { technology: 'Go', level: 'Beginner' },
             { technology: 'C++', level: 'Beginner' },
             { technology: 'Typescript', level: 'Experienced' },
             { technology: 'Javascript', level: 'Experienced' },
