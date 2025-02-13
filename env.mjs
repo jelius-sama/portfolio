@@ -1,9 +1,9 @@
 const ENV = Object.freeze({
-    site: 'https://jelius.vercel.app',
-    routes: Object.freeze({
-        portfolio: '/',
-        links: '/links',
-    }),
+  site: "https://jelius.dev",
+  routes: Object.freeze({
+    portfolio: "/",
+    links: "/links",
+  }),
 });
 
 export default ENV;

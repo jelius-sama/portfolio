@@ -4,7 +4,7 @@ This repository contains the code for my personal portfolio website, built using
 
 ## 🛠️ Technologies Used
 
-- **Next.js**: Optimized for SEO with seamless Vercel integration for fast deployment.
+- **Next.js**: Optimized for SEO with seamless AWS integration for fast deployment.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 - **Shadcn UI**: For building beautiful and accessible user interfaces.
 - **Bun**: Super-fast JavaScript runtime and package manager.
@@ -63,7 +63,7 @@ bun run dev
 This will start the development server on ``http://localhost:3000.``
 
 ### 🌐 Deployment
-This website is deployed using __Vercel__ for fast, global deployment.
+This website is deployed using __AWS__ for fast, global deployment.
 
 #### Building for production
 
@@ -78,7 +78,7 @@ The project uses __Tailwind CSS__ for styling and __Shadcn UI__ for components. 
 
 ### 🔗 Social Media Links
 
-Check out my social media profiles [here](https://jelius.vercel.app/links).
+Check out my social media profiles [here](https://jelius.dev/links).
 
 ### 📝 License
 
