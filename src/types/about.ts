@@ -11,6 +11,7 @@ export type Explore = {
 
 export interface About {
     name: string;
+    firstName?: string;
     nickName?: string;
     description: string;
     linksDescription: string;

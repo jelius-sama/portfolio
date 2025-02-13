@@ -6,6 +6,7 @@ import { About } from "@/constants/about-me";
 import { AppleImage } from "next/dist/lib/metadata/types/extra-types";
 import { headers } from "next/headers";
 import ENV from "@/root/env.mjs";
+import { WithContext, Person } from "schema-dts";
 
 export const startupImage: AppleImage[] = [
   {
@@ -190,12 +191,12 @@ export async function metadata(): Promise<Metadata> {
   const isPortfolioPage = pathname === ENV.routes.portfolio;
 
   const title = isLinksPage
-    ? `Links | ${About.nickName}`
+    ? `Links | ${About.firstName}`
     : isPortfolioPage
-    ? `Portfolio | ${About.nickName}`
+    ? `Portfolio | ${About.firstName}`
     : {
-        default: `${About.nickName}`,
-        template: `%s | ${About.nickName}`,
+        default: `${About.firstName}`,
+        template: `%s | ${About.firstName}`,
       };
   const description = isLinksPage ? About.linksDescription : About.description;
   const applicationName = About.name;
@@ -252,6 +253,17 @@ export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };
 
+const jsonLd: WithContext<Person> = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Jelius",
+  url: ENV.site,
+  sameAs: [
+    "https://www.linkedin.com/in/jelius-basumatary-485044339/",
+    "https://github.com/jelius-sama",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -260,6 +272,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="overflow-x-hidden antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

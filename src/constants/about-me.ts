@@ -3,6 +3,7 @@ import { About as AboutInterface } from "@/types/about";
 
 export const About: AboutInterface = {
     name: "Jelius Basumatary",
+    firstName: "Jelius",
     nickName: "Jelius-sama",
     description: "A showcase of my expertise in Fullstack Web and App development, featuring functional and visually appealing applications. This site showcases my skills, adaptability, and dedication to continuous learning and improvement in modern web and app development practices.",
     linksDescription: "A personalized hub showcasing all of Jelius's social media profiles and key links.",
