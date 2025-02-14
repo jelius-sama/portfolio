@@ -15,7 +15,7 @@ export default function HeroSection() {
   const scrollToSection = useScrollToSection();
   const { theme, systemTheme } = useTheme();
 
-  const user = "/assets/jelius.JPG";
+  const user = "/assets/jelius.jpg";
   const githubDark = "/assets/github-mark-white.png";
   const githubWhite = "/assets/github-mark.png";
 

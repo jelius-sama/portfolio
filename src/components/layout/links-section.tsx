@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function LinksSection() {
-  const user = "/assets/jelius.JPG";
+  const user = "/assets/jelius.jpg";
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);

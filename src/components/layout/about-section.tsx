@@ -14,7 +14,7 @@ import Image from "next/image";
 
 export default function AboutSection() {
   const scrollToSection = useScrollToSection();
-  const user = "/assets/jelius.JPG";
+  const user = "/assets/jelius.jpg";
 
   return (
     <section

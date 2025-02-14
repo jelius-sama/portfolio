@@ -188,7 +188,7 @@ export default function LinksShareDialog() {
 }
 
 function ShareForm({ className }: React.ComponentProps<"section">) {
-  const user = "/assets/jelius.JPG";
+  const user = "/assets/jelius.jpg";
 
   return (
     <section className={cn("", className)}>

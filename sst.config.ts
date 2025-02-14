@@ -14,7 +14,7 @@ export default $config({
     new sst.aws.Nextjs("Portfolio", {
       domain: {
         name: "jelius.dev",
-        aliases: ["www.jelius.dev"]
+        aliases: ["www.jelius.dev", "portfolio.jelius.dev"]
       }
     });
   },

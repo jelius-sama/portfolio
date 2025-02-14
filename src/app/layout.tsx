@@ -200,7 +200,7 @@ export async function metadata(): Promise<Metadata> {
       };
   const description = isLinksPage ? About.linksDescription : About.description;
   const applicationName = About.name;
-  const icon = `${probableURL}/assets/jelius.JPG`;
+  const icon = `${probableURL}/assets/jelius.jpg`;
   const appleIcon = `${probableURL}/icons/apple-icon-180.png`;
   const twitterHandle = `${About.xHandle}`;
 
