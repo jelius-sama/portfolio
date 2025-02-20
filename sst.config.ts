@@ -12,6 +12,9 @@ export default $config({
   },
   async run() {
     new sst.aws.Nextjs("Portfolio", {
+      environment: {
+        ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+      },
       domain: {
         name: "jelius.dev",
         aliases: ["www.jelius.dev", "portfolio.jelius.dev"]

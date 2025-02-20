@@ -7,6 +7,9 @@ import { AppleImage } from "next/dist/lib/metadata/types/extra-types";
 import { headers } from "next/headers";
 import ENV from "@/root/env.mjs";
 import { WithContext, Person } from "schema-dts";
+import Analytics from "@/components/analytics";
+import ServerMessage from "@/components/server-message";
+import { Suspense } from "react";
 
 export const startupImage: AppleImage[] = [
   {
@@ -193,8 +196,8 @@ export async function metadata(): Promise<Metadata> {
   const title = isLinksPage
     ? `Links | ${About.firstName}`
     : isPortfolioPage
-    ? `Portfolio | ${About.firstName}`
-    : {
+      ? `Portfolio | ${About.firstName}`
+      : {
         default: `${About.firstName}`,
         template: `%s | ${About.firstName}`,
       };
@@ -276,6 +279,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Analytics />
+        <Suspense>
+          <ServerMessage />
+        </Suspense>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
