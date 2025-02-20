@@ -1,65 +1,28 @@
-import sqlite3 from "sqlite3";
-import { open } from "sqlite";
 import { NextRequest, NextResponse } from "next/server";
 import { UAParser } from "ua-parser-js";
-import path from "path";
-import fs from "fs";
+import {
+  DynamoDBClient,
+  QueryCommand,
+  ScanCommand,
+  UpdateItemCommand,
+  PutItemCommand,
+} from "@aws-sdk/client-dynamodb";
+import { Resource } from "sst";
 
 export const dynamic = "force-dynamic";
 
-// Function to track visitor analytics
+const client = new DynamoDBClient();
+
 export async function GET(req: NextRequest) {
-  // Ensure database file exists
-  const dbPath = path.resolve(process.cwd(), "analytics.sqlite");
-  if (!fs.existsSync(dbPath)) {
-    fs.writeFileSync(dbPath, "");
-  }
+  const TableName = Resource.PortfolioAnalytics.name; 
 
-  // Open database
-  const dbPromise = open({
-    filename: dbPath,
-    driver: sqlite3.Database,
-    mode: sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
-  });
-
-  // Initialize the database and create the table if it doesn't exist
-  async function initializeDB() {
-    const db = await dbPromise;
-    await db.exec(`
-    CREATE TABLE IF NOT EXISTS visitor_analytics (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      visitor_id TEXT NOT NULL,
-      ip_address TEXT NOT NULL,
-      user_agent TEXT,
-      browser TEXT,
-      browser_version TEXT,
-      os TEXT,
-      os_version TEXT,
-      device_type TEXT,
-      device_model TEXT,
-      referrer_url TEXT,
-      page_url TEXT NOT NULL,
-      visit_count INTEGER DEFAULT 1,
-      first_visited_at TEXT DEFAULT CURRENT_TIMESTAMP,
-      last_visited_at TEXT DEFAULT CURRENT_TIMESTAMP
-    );
-  `);
-  }
-
-  initializeDB();
-
-
-  const db = await dbPromise;
-
-  // Get IP address (Next.js does not expose req.ip directly)
-  const ipAddress =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-
+  // Extract request details
+  const ipAddress = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
   const userAgentString = req.headers.get("user-agent") || "unknown";
   const referrerUrl = req.headers.get("referer") || "direct";
   const pageUrl = req.nextUrl.searchParams.get("page") || "unknown";
 
-  // Parse user-agent for more details
+  // Parse user-agent
   const parser = new UAParser(userAgentString);
   const { browser, os, device } = parser.getResult();
 
@@ -67,51 +30,84 @@ export async function GET(req: NextRequest) {
   const browserVersion = browser.version || "unknown";
   const osName = os.name || "unknown";
   const osVersion = os.version || "unknown";
-  const deviceType = device.type || "desktop"; // Default to desktop if undefined
+  const deviceType = device.type || "desktop";
   const deviceModel = device.model || "unknown";
 
-  // Generate a visitor_id (simplified; could use hashed IP + User-Agent)
   const visitorId = `${ipAddress}-${browserName}-${osName}`;
 
-  // Check if visitor already accessed the page
-  const existingVisit = await db.get(
-    `SELECT id, visit_count FROM visitor_analytics WHERE visitor_id = ? AND page_url = ?`,
-    [visitorId, pageUrl]
+  // Check if visitor exists
+  const existingVisit = await client.send(
+    new QueryCommand({
+      TableName,
+      KeyConditionExpression: "visitor_id = :visitor_id AND page_url = :page_url",
+      ExpressionAttributeValues: {
+        ":visitor_id": { S: visitorId },
+        ":page_url": { S: pageUrl },
+      },
+    })
   );
 
-  if (existingVisit) {
-    // Update visit count and last_visited_at
-    await db.run(
-      `UPDATE visitor_analytics 
-       SET visit_count = visit_count + 1, last_visited_at = CURRENT_TIMESTAMP 
-       WHERE id = ?`,
-      [existingVisit.id]
+  if (existingVisit.Items && existingVisit.Items.length > 0) {
+    await client.send(
+      new UpdateItemCommand({
+        TableName,
+        Key: {
+          visitor_id: { S: visitorId },
+          page_url: { S: pageUrl },
+        },
+        UpdateExpression: "SET visit_count = visit_count + :inc, last_visited_at = :now",
+        ExpressionAttributeValues: {
+          ":inc": { N: "1" },
+          ":now": { S: new Date().toISOString() },
+        },
+      })
     );
   } else {
-    // Insert new visitor record
-    await db.run(
-      `INSERT INTO visitor_analytics 
-       (visitor_id, ip_address, user_agent, browser, browser_version, os, os_version, device_type, device_model, referrer_url, page_url)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        visitorId,
-        ipAddress,
-        userAgentString,
-        browserName,
-        browserVersion,
-        osName,
-        osVersion,
-        deviceType,
-        deviceModel,
-        referrerUrl,
-        pageUrl,
-      ]
+    await client.send(
+      new PutItemCommand({
+        TableName,
+        Item: {
+          visitor_id: { S: visitorId },
+          ip_address: { S: ipAddress },
+          user_agent: { S: userAgentString },
+          browser: { S: browserName },
+          browser_version: { S: browserVersion },
+          os: { S: osName },
+          os_version: { S: osVersion },
+          device_type: { S: deviceType },
+          device_model: { S: deviceModel },
+          referrer_url: { S: referrerUrl },
+          page_url: { S: pageUrl },
+          visit_count: { N: "1" },
+          first_visited_at: { S: new Date().toISOString() },
+          last_visited_at: { S: new Date().toISOString() },
+        },
+      })
     );
   }
 
-  const data = await db.all(
-    `SELECT * FROM visitor_analytics;`
-  );
+  // Retrieve all analytics data
+  const data = await client.send(new ScanCommand({ TableName }));
 
-  return NextResponse.json(data);
+  // Normalize response
+  function normalizeItem(item: Record<string, { S?: string; N?: string }>) {
+    return {
+      visitor_id: item.visitor_id?.S || "unknown",
+      ip_address: item.ip_address?.S || "unknown",
+      user_agent: item.user_agent?.S || "unknown",
+      browser: item.browser?.S || "unknown",
+      browser_version: item.browser_version?.S || "unknown",
+      os: item.os?.S || "unknown",
+      os_version: item.os_version?.S || "unknown",
+      device_type: item.device_type?.S || "unknown",
+      device_model: item.device_model?.S || "unknown",
+      referrer_url: item.referrer_url?.S || "direct",
+      page_url: item.page_url?.S || "unknown",
+      visit_count: item.visit_count?.N ? Number(item.visit_count.N) : 0,
+      first_visited_at: item.first_visited_at?.S || "unknown",
+      last_visited_at: item.last_visited_at?.S || "unknown",
+    };
+  }
+
+  return NextResponse.json((data.Items || []).map(normalizeItem));
 }

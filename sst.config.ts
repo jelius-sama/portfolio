@@ -11,10 +11,24 @@ export default $config({
     };
   },
   async run() {
+    const table = new sst.aws.Dynamo("PortfolioAnalytics", {
+      fields: {
+        visitor_id: "string",
+        page_url: "string",
+      },
+      primaryIndex: { hashKey: "visitor_id", rangeKey: "page_url" },
+    });
+
+    if (!process.env.ADMIN_PASSWORD) {
+      console.error("ADMIN_PASSWORD must be set");
+      process.exit(1);
+    }
+    
     new sst.aws.Nextjs("Portfolio", {
       environment: {
         ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
       },
+      link: [table],
       domain: {
         name: "jelius.dev",
         aliases: ["www.jelius.dev", "portfolio.jelius.dev"]

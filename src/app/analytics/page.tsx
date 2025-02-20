@@ -26,6 +26,7 @@ export default async function AnalyticsPage() {
 
             return hashedInput === authCookie.value;
         } catch (error) {
+            console.log(error)
             return false;
         }
     };
@@ -35,7 +36,7 @@ export default async function AnalyticsPage() {
     return (
         <section className="w-full mt-[64px]">
             {authenticated ? (
-                <Analytics props={{ pathname: pathname }} />
+                <Analytics pathname={pathname} />
             ) : (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-full max-w-lg">
                     <AuthenticateAdminUser />

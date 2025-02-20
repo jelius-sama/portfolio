@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 
 type VisitorAnalytics = {
-    id: number;
     visitor_id: string;
     ip_address: string;
     user_agent: string;
@@ -23,15 +22,17 @@ type VisitorAnalytics = {
     last_visited_at: string;
 };
 
-export default function Analytics({ props }: { props: {pathname: string} }) {
+export default function Analytics({ pathname }: { pathname: string }) {
     const [data, setData] = useState<VisitorAnalytics[]>([]);
 
-  useEffect(() => {
-    fetch(`/api/analytics?page=${props.pathname}`)
-      .then((res) => res.json())
-      .then((data) => setData(data))
-      .catch((err) => console.error("Error fetching analytics:", err));
-  }, []);
+    useEffect(() => {
+        fetch(`/api/analytics?page=${pathname}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data);
+            })
+            .catch((err) => console.error("Error fetching analytics:", err));
+    }, [pathname]);
 
     const columns: ColumnDef<VisitorAnalytics>[] = [
         { accessorKey: "visitor_id", header: "Visitor ID" },
@@ -55,34 +56,40 @@ export default function Analytics({ props }: { props: {pathname: string} }) {
         return ip.startsWith("::ffff:") ? ip.substring(7) : ip;
     }
 
+    function normalizeCellValue(value: string): string | number {
+        if (typeof value === "string") {
+            return value.includes("::ffff:") ? normalizeIP(value) : value;
+        }
+        return value;
+    }
+
     return (
-            <div className="container mx-auto p-6">
-                <h1 className="text-2xl font-bold mb-4">Website Analytics</h1>
-                <Card className="p-4">
-                    <Table>
-                        <TableHeader>
-                            {table.getHeaderGroups().map((headerGroup) => (
-                                <TableRow key={headerGroup.id}>
-                                    {headerGroup.headers.map((header) => {
-                                        const colHeader = header.column.columnDef.header as string
-                                        return (
-                                            <TableHead key={header.id}>{colHeader}</TableHead>
-                                        )
-                                    })}
-                                </TableRow>
-                            ))}
-                        </TableHeader>
-                        <TableBody>
-                            {table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id}>
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>{(typeof cell.getValue() === "string" || typeof cell.getValue() === "number"  ? String(cell.getValue()).includes("::ffff:") ? normalizeIP(cell.getValue() as string) : cell.getValue() as string : "")}</TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Card>
-            </div>
+        <div className="container mx-auto p-6">
+            <h1 className="text-2xl font-bold mb-4">Website Analytics</h1>
+            <Card className="p-4">
+                <Table>
+                    <TableHeader>
+                        {table.getHeaderGroups().map((headerGroup) => (
+                            <TableRow key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id}>
+                                        {header.column.columnDef.header as string}
+                                    </TableHead>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableHeader>
+                    <TableBody>
+                        {table.getRowModel().rows.map((row) => (
+                            <TableRow key={row.id}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>{normalizeCellValue(cell.getValue() as string)}</TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Card>
+        </div>
     );
 }
