@@ -23,10 +23,16 @@ export default $config({
       console.error("ADMIN_PASSWORD must be set");
       process.exit(1);
     }
-    
+
+    if (!process.env.IP_LOCATION_PROVIDER_API_KEY) {
+      console.error("IP_LOCATION_PROVIDER_API_KEY must be set");
+      process.exit(1);
+    }
+
     new sst.aws.Nextjs("Portfolio", {
       environment: {
         ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+        IP_LOCATION_PROVIDER_API_KEY: process.env.IP_LOCATION_PROVIDER_API_KEY,
       },
       link: [table],
       domain: {

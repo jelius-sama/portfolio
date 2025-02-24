@@ -17,8 +17,15 @@ if [ -z "$ADMIN_PASSWORD" ]; then
     exit 1
 fi
 
+if [ -z "$IP_LOCATION_PROVIDER_API_KEY" ]; then
+    echo "Error: IP_LOCATION_PROVIDER_API_KEY is not set in .env.local file"
+    exit 1
+fi
+
 # Run the deployment command
 echo "Deploying with ADMIN_PASSWORD..."
-ADMIN_PASSWORD="$ADMIN_PASSWORD" sst deploy
+ADMIN_PASSWORD="$ADMIN_PASSWORD" \
+IP_LOCATION_PROVIDER_API_KEY="$IP_LOCATION_PROVIDER_API_KEY" \
+sst deploy
 
 echo "Deployment complete!"

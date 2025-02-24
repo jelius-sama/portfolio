@@ -20,6 +20,9 @@ type VisitorAnalytics = {
     visit_count: number;
     first_visited_at: string;
     last_visited_at: string;
+    city?: string;
+    region_name?: string;
+    country_name?: string;
 };
 
 export default function Analytics({ pathname }: { pathname: string }) {
@@ -28,8 +31,21 @@ export default function Analytics({ pathname }: { pathname: string }) {
     useEffect(() => {
         fetch(`/api/analytics?page=${pathname}`)
             .then((res) => res.json())
-            .then((data) => {
-                setData(data);
+            .then(async (analyticsData) => {
+                const enrichedData = await Promise.all(
+                    analyticsData.map(async (entry: VisitorAnalytics) => {
+                        const ip = normalizeIP(entry.ip_address);
+                        try {
+                            const res = await fetch(`https://api.ipapi.com/${ip}?access_key=${process.env.IP_LOCATION_PROVIDER_API_KEY}`);
+                            const geoData = await res.json();
+                            return { ...entry, city: geoData.city, region_name: geoData.region_name, country_name: geoData.country_name };
+                        } catch (err) {
+                            console.error(`Error fetching geolocation for ${ip}:`, err);
+                            return entry;
+                        }
+                    })
+                );
+                setData(enrichedData);
             })
             .catch((err) => console.error("Error fetching analytics:", err));
     }, [pathname]);
@@ -37,6 +53,9 @@ export default function Analytics({ pathname }: { pathname: string }) {
     const columns: ColumnDef<VisitorAnalytics>[] = [
         { accessorKey: "visitor_id", header: "Visitor ID" },
         { accessorKey: "ip_address", header: "IP Address" },
+        { accessorKey: "city", header: "City" },
+        { accessorKey: "region_name", header: "Region" },
+        { accessorKey: "country_name", header: "Country" },
         { accessorKey: "browser", header: "Browser" },
         { accessorKey: "browser_version", header: "Version" },
         { accessorKey: "os", header: "OS" },
@@ -56,11 +75,9 @@ export default function Analytics({ pathname }: { pathname: string }) {
         return ip.startsWith("::ffff:") ? ip.substring(7) : ip;
     }
 
-    function normalizeCellValue(value: string): string | number {
-        if (typeof value === "string") {
-            return value.includes("::ffff:") ? normalizeIP(value) : value;
-        }
-        return value;
+    function normalizeCellValue(value: string | undefined): string | number {
+        if (!value) return "N/A";
+        return value.startsWith("::ffff:") ? normalizeIP(value) : value;
     }
 
     return (
