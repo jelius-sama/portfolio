@@ -10,6 +10,7 @@ import { WithContext, Person } from "schema-dts";
 import Analytics from "@/components/analytics";
 import ServerMessage from "@/components/server-message";
 import { Suspense } from "react";
+import DevAlert from "@/components/layout/dev-alert";
 
 export const startupImage: AppleImage[] = [
   {
@@ -283,6 +284,7 @@ export default function RootLayout({
         <Suspense>
           <ServerMessage />
         </Suspense>
+        <DevAlert />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
