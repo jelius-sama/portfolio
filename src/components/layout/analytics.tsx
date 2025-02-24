@@ -29,14 +29,14 @@ export default function Analytics({ pathname }: { pathname: string }) {
     const [data, setData] = useState<VisitorAnalytics[]>([]);
 
     useEffect(() => {
-        fetch(`/api/analytics?page=${pathname}`)
+        fetch(process.env.NODE_ENV === "development" ? `/api/test` : `/api/analytics?page=${pathname}`)
             .then((res) => res.json())
             .then(async (analyticsData) => {
                 const enrichedData = await Promise.all(
                     analyticsData.map(async (entry: VisitorAnalytics) => {
                         const ip = normalizeIP(entry.ip_address);
                         try {
-                            const res = await fetch(`https://api.ipapi.com/${ip}?access_key=${process.env.IP_LOCATION_PROVIDER_API_KEY}`);
+                            const res = await fetch(`https://api.ipapi.com/${ip}?access_key=${process.env.NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY}`);
                             const geoData = await res.json();
                             return { ...entry, city: geoData.city, region_name: geoData.region_name, country_name: geoData.country_name };
                         } catch (err) {
@@ -75,8 +75,8 @@ export default function Analytics({ pathname }: { pathname: string }) {
         return ip.startsWith("::ffff:") ? ip.substring(7) : ip;
     }
 
-    function normalizeCellValue(value: string | undefined): string | number {
-        if (!value) return "N/A";
+    function normalizeCellValue(value: unknown): string | number | unknown {
+        if (typeof value !== "string") return value ?? "N/A";
         return value.startsWith("::ffff:") ? normalizeIP(value) : value;
     }
 
@@ -100,7 +100,7 @@ export default function Analytics({ pathname }: { pathname: string }) {
                         {table.getRowModel().rows.map((row) => (
                             <TableRow key={row.id}>
                                 {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>{normalizeCellValue(cell.getValue() as string)}</TableCell>
+                                    <TableCell key={cell.id}>{normalizeCellValue(cell.getValue() as string) as string}</TableCell>
                                 ))}
                             </TableRow>
                         ))}

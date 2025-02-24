@@ -8,6 +8,7 @@ export default function Analytics() {
 
   useEffect(() => {
     if (!pathname) return;
+    if (process.env.NODE_ENV === "development") return;
 
     // Send analytics data to the server
     fetch(`/api/analytics?page=${encodeURIComponent(pathname)}`, {
