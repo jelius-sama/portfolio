@@ -24,15 +24,9 @@ export default $config({
       process.exit(1);
     }
 
-    if (!process.env.NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY) {
-      console.error("NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY must be set");
-      process.exit(1);
-    }
-
     new sst.aws.Nextjs("Portfolio", {
       environment: {
         ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
-        NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY: process.env.NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY,
       },
       link: [table],
       domain: {

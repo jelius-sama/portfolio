@@ -36,9 +36,9 @@ export default function Analytics({ pathname }: { pathname: string }) {
                     analyticsData.map(async (entry: VisitorAnalytics) => {
                         const ip = normalizeIP(entry.ip_address);
                         try {
-                            const res = await fetch(`https://api.ipapi.com/${ip}?access_key=${process.env.NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY}`);
+                            const res = await fetch(`https://freeipapi.com/api/json/${ip}`);
                             const geoData = await res.json();
-                            return { ...entry, city: geoData.city, region_name: geoData.region_name, country_name: geoData.country_name };
+                            return { ...entry, city: geoData.cityName, region_name: geoData.regionName, country_name: geoData.countryName };
                         } catch (err) {
                             console.error(`Error fetching geolocation for ${ip}:`, err);
                             return entry;
