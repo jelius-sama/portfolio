@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import PageLoading from "@/components/layout/page-loading";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -17,11 +17,16 @@ import {
 import { NavLinks, PortfolioSections } from "@/constants/portfolio-sections";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
 // import user from '/assets/jelius.jpg';
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { MenuIcon } from "lucide-react";
 import { About } from "@/constants/about-me";
 import Image from "next/image";
 import ENV from "@/root/env.mjs";
+import Link from "next/link";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "../ui/label";
+import { useAtomValue } from "jotai";
+import { ipProviderAtom } from "./analytics";
 
 export default function NavigationMenu({
   children,
@@ -42,6 +47,18 @@ export default function NavigationMenu({
     null
   );
   const [tryAgain, setTryAgain] = useState<number>(0);
+  const ipProvider = useAtomValue(ipProviderAtom)
+  const searchParams = useSearchParams()
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   useEffect(() => {
     if (pathname !== ENV.routes.links) return;
@@ -97,14 +114,12 @@ export default function NavigationMenu({
     <section className="small-container mx-auto">
       <section
         id="nav"
-        className={`fixed small-container z-50 backdrop-blur-lg top-0 left-0 right-0 flex flex-row justify-normal gap-x-4 md:gap-x-0 md:justify-between ${
-          pathname === ENV.routes.links ? "!justify-end" : ""
-        } h-[64px] items-center`}
+        className={`fixed small-container z-50 backdrop-blur-lg top-0 left-0 right-0 flex flex-row justify-normal gap-x-4 md:gap-x-0 md:justify-between ${pathname === ENV.routes.links ? "!justify-end" : ""
+          } h-[64px] items-center`}
       >
         <div
-          className={`md:hidden z-30 ${
-            pathname === ENV.routes.links ? "!hidden" : ""
-          }`}
+          className={`md:hidden z-30 ${pathname === ENV.routes.links ? "!hidden" : ""
+            }`}
         >
           <NavigationSheet />
         </div>
@@ -127,18 +142,16 @@ export default function NavigationMenu({
               width={40}
               src={user}
               alt="Profile Image"
-              className={`w-10 h-10 rounded-full transition-opacity duration-300 ${
-                isProfileOutOfView ? "opacity-100" : "opacity-0"
-              }`}
+              className={`w-10 h-10 rounded-full transition-opacity duration-300 ${isProfileOutOfView ? "opacity-100" : "opacity-0"
+                }`}
             />
           )}
         </div>
 
         <div
           id="nav-container"
-          className={`hidden md:flex gap-x-2 md:flex-row z-30 ${
-            pathname === ENV.routes.links ? "!flex" : ""
-          }`}
+          className={`hidden md:flex gap-x-2 md:flex-row z-30 ${pathname === ENV.routes.links ? "!flex" : ""
+            }`}
         >
           {pathname === ENV.routes.portfolio &&
             Object.entries(PortfolioSections).map(([key, section]) => (
@@ -154,16 +167,18 @@ export default function NavigationMenu({
           {Object.entries(NavLinks).map(([key, link]) =>
             (link.href === ENV.routes.portfolio &&
               pathname === ENV.routes.portfolio) ||
-            (link.href === ENV.routes.links &&
-              pathname === ENV.routes.links) ? null : (
+              (link.href === ENV.routes.links &&
+                pathname === ENV.routes.links) ? null : (
               <Button
                 aria-label={`Navigate to ${link.title}`}
                 id={key}
                 key={key}
                 variant={"outline"}
-                onClick={() => router.push(link.href)}
+                asChild
               >
-                {link.title}
+                <Link href={link.href}>
+                  {link.title}
+                </Link>
               </Button>
             )
           )}
@@ -173,6 +188,18 @@ export default function NavigationMenu({
           ) : pathname === ENV.routes.links ? (
             <LinksShareDialog />
           ) : null}
+
+          {pathname === "/analytics" && (
+            <div className="flex flex-row gap-x-2 ml-4 items-center">
+              <Switch id="ip-switch"
+                checked={ipProvider === "free-ipapi"}
+                onCheckedChange={() => {
+                  router.push(pathname + '?' + createQueryString('ipApi', ipProvider === "ipapi" ? "free-ipapi" : "ipapi"))
+                }}
+              />
+              <Label htmlFor="ip-switch">{ipProvider === "ipapi" ? "IP API" : "Free IP API"}</Label>
+            </div>
+          )}
         </div>
       </section>
 
@@ -187,8 +214,20 @@ export default function NavigationMenu({
 
 function NavigationSheet() {
   const scrollToSection = useScrollToSection();
-  const router = useRouter();
   const pathname = usePathname();
+  const router = useRouter();
+  const ipProvider = useAtomValue(ipProviderAtom)
+  const searchParams = useSearchParams()
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   return (
     <Sheet>
@@ -202,7 +241,7 @@ function NavigationSheet() {
         </Button>
       </SheetTrigger>
       <SheetContent side={"left"} className="w-60">
-        <div className="flex flex-col flex-nowrap mt-4">
+        <div className="flex flex-1 h-[calc(100%_-_(16px_*_2))] flex-col flex-nowrap mt-4">
           {pathname === ENV.routes.portfolio &&
             Object.entries(PortfolioSections).map(([key, section]) => (
               <SheetClose key={key} asChild>
@@ -219,20 +258,34 @@ function NavigationSheet() {
 
           {Object.entries(NavLinks).map(([key, link]) =>
             link.href === ENV.routes.portfolio &&
-            pathname === ENV.routes.portfolio ? null : (
+              pathname === ENV.routes.portfolio ? null : (
               <SheetClose key={key} asChild>
                 <Button
                   aria-label={`Navigate to ${link.title}`}
                   variant={"outline"}
                   className="my-2"
-                  onClick={() => router.push(link.href)}
+                  asChild
                 >
-                  <p className="w-full text-start">{link.title}</p>
+                  <Link href={link.href}>
+                    <p className="w-full text-start">{link.title}</p>
+                  </Link>
                 </Button>
               </SheetClose>
             )
           )}
         </div>
+
+        {pathname === "/analytics" && (
+          <div className="flex flex-row gap-x-2 items-center">
+            <Switch id="ip-switch"
+              checked={ipProvider === "free-ipapi"}
+              onCheckedChange={() => {
+                router.push(pathname + '?' + createQueryString('ipApi', ipProvider === "ipapi" ? "free-ipapi" : "ipapi"))
+              }}
+            />
+            <Label htmlFor="ip-switch">{ipProvider === "ipapi" ? "IP API" : "Free IP API"}</Label>
+          </div>
+        )}
       </SheetContent>
     </Sheet>
   );

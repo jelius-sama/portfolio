@@ -17,6 +17,10 @@ if [ -z "$ADMIN_PASSWORD" ]; then
     exit 1
 fi
 
+if [ -z "$NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY" ]; then
+    echo "Error: NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY is not set in .env.local file"
+fi
+
 # Run the deployment command
 echo "Deploying with ADMIN_PASSWORD"
 ADMIN_PASSWORD="$ADMIN_PASSWORD" sst deploy

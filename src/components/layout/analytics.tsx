@@ -5,6 +5,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import AnalyticsGraphs from "@/components/layout/analytics-charts";
+import { IpApi } from "@/app/analytics/page";
+import { atom, useSetAtom } from 'jotai'
 
 type VisitorAnalytics = {
     visitor_id: string;
@@ -26,11 +28,18 @@ type VisitorAnalytics = {
     country_name?: string;
 };
 
-export default function Analytics({ pathname }: { pathname: string }) {
+export const ipProviderAtom = atom<undefined | IpApi>(undefined)
+
+export default function Analytics({ pathname, ipApi }: { pathname: string, ipApi: { url: string, apiKey: string | null, provider: IpApi } }) {
     const [data, setData] = useState<VisitorAnalytics[]>([]);
     const [sorting, setSorting] = useState<SortingState>([
         { id: "last_visited_at", desc: true } // Default sort: most recent visits first
     ]);
+    const setIpProvider = useSetAtom(ipProviderAtom);
+
+    useEffect(() => {
+        setIpProvider(ipApi.provider)
+    }, [ipApi.provider])
 
     useEffect(() => {
         fetch(process.env.NODE_ENV === "development" ? `/api/test` : `/api/analytics?page=${pathname}`)
@@ -40,9 +49,9 @@ export default function Analytics({ pathname }: { pathname: string }) {
                     analyticsData.map(async (entry: VisitorAnalytics) => {
                         const ip = normalizeIP(entry.ip_address);
                         try {
-                            const res = await fetch(`https://freeipapi.com/api/json/${ip}`);
+                            const res = await fetch(ipApi.apiKey === null ? `${ipApi.url}/${ip}` : `${ipApi.url}/${ip}?${ipApi.apiKey}`);
                             const geoData = await res.json();
-                            return { ...entry, city: geoData.cityName, region_name: geoData.regionName, country_name: geoData.countryName };
+                            return ipApi.provider === "ipapi" ? { ...entry, city: geoData.city, region_name: geoData.region_name, country_name: geoData.country_name } : { ...entry, city: geoData.cityName, region_name: geoData.regionName, country_name: geoData.countryName };
                         } catch (err) {
                             console.error(`Error fetching geolocation for ${ip}:`, err);
                             return entry;
@@ -52,7 +61,7 @@ export default function Analytics({ pathname }: { pathname: string }) {
                 setData(enrichedData);
             })
             .catch((err) => console.error("Error fetching analytics:", err));
-    }, [pathname]);
+    }, [pathname, ipApi.url, ipApi.apiKey, ipApi.provider]);
 
     const columns: ColumnDef<VisitorAnalytics>[] = [
         { id: "sl_no", header: "S.No" },
@@ -67,8 +76,8 @@ export default function Analytics({ pathname }: { pathname: string }) {
         { accessorKey: "device_type", header: "Device Type" },
         { accessorKey: "page_url", header: "Visited Page" },
         { accessorKey: "visit_count", header: "Visits" },
-        { 
-            accessorKey: "last_visited_at", 
+        {
+            accessorKey: "last_visited_at",
             header: "Last Visit",
             sortingFn: "datetime" // Use datetime sorting for date columns
         },
@@ -115,7 +124,7 @@ export default function Analytics({ pathname }: { pathname: string }) {
                             <TableRow key={row.id}>
                                 {/* Special handling for the first column (S.No) */}
                                 <TableCell>{rowIndex + 1}</TableCell>
-                                
+
                                 {/* All other cells except the first one */}
                                 {row.getVisibleCells().map((cell, cellIndex) => {
                                     // Skip the first column since we manually added it
