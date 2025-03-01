@@ -18,15 +18,18 @@ import { NavLinks, PortfolioSections } from "@/constants/portfolio-sections";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
 // import user from '/assets/jelius.jpg';
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, RefreshCcw } from "lucide-react";
 import { About } from "@/constants/about-me";
 import Image from "next/image";
 import ENV from "@/root/env.mjs";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { useAtomValue } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 import { ipProviderAtom } from "@/components/layout/analytics";
+import * as motion from "motion/react-client"
+
+export const refreshTrackerAtom = atom<number | null>(null);
 
 export default function NavigationMenu({
   children,
@@ -49,6 +52,16 @@ export default function NavigationMenu({
   const [tryAgain, setTryAgain] = useState<number>(0);
   const ipProvider = useAtomValue(ipProviderAtom)
   const searchParams = useSearchParams()
+  const [refreshTracker, setRefreshTracker] = useAtom(refreshTrackerAtom);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (refreshTracker === null) return
+    // Trigger animation whenever refreshTracker changes
+    setAnimate(true);
+    const timeout = setTimeout(() => setAnimate(false), 500); // Reset after animation
+    return () => clearTimeout(timeout);
+  }, [refreshTracker]);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -193,6 +206,19 @@ export default function NavigationMenu({
 
           {pathname === "/analytics" && (
             <div className="flex flex-row gap-x-2 ml-4 items-center">
+              <Button variant={'outline'} size={'icon'} onClick={() => {
+                setRefreshTracker(Date.now())
+              }}>
+                <motion.div
+                  animate={animate ? { rotate: [0, 180] } : {}}
+                  transition={{
+                    duration: 0.6, // Slightly longer for a smoother effect
+                    ease: [0.25, 1, 0.5, 1], // Custom cubic Bézier easing for Apple-like feel
+                  }}
+                >
+                  <RefreshCcw size={18} />
+                </motion.div>
+              </Button>
               <Switch id="ip-switch"
                 checked={ipProvider === "free-ipapi"}
                 onCheckedChange={() => {

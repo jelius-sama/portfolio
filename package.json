@@ -28,6 +28,7 @@
     "install": "^0.13.0",
     "jotai": "^2.12.1",
     "lucide-react": "^0.446.0",
+    "motion": "^12.4.7",
     "next": "14.2.13",
     "next-themes": "^0.3.0",
     "react": "^18",

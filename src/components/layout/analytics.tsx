@@ -6,7 +6,8 @@ import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import AnalyticsGraphs from "@/components/layout/analytics-charts";
 import { IpApi } from "@/app/analytics/page";
-import { atom, useSetAtom } from 'jotai'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { refreshTrackerAtom } from "@/components/layout/navigation-menu";
 
 type VisitorAnalytics = {
     visitor_id: string;
@@ -36,6 +37,7 @@ export default function Analytics({ pathname, ipApi }: { pathname: string, ipApi
         { id: "last_visited_at", desc: true } // Default sort: most recent visits first
     ]);
     const setIpProvider = useSetAtom(ipProviderAtom);
+    const refreshTracker = useAtomValue(refreshTrackerAtom)
 
     useEffect(() => {
         setIpProvider(ipApi.provider)
@@ -61,7 +63,7 @@ export default function Analytics({ pathname, ipApi }: { pathname: string, ipApi
                 setData(enrichedData);
             })
             .catch((err) => console.error("Error fetching analytics:", err));
-    }, [pathname, ipApi.url, ipApi.apiKey, ipApi.provider]);
+    }, [pathname, ipApi.url, ipApi.apiKey, ipApi.provider, refreshTracker]);
 
     const columns: ColumnDef<VisitorAnalytics>[] = [
         { id: "sl_no", header: "S.No" },
@@ -97,12 +99,7 @@ export default function Analytics({ pathname, ipApi }: { pathname: string, ipApi
     function normalizeIP(ip: string): string {
         return ip.startsWith("::ffff:") ? ip.substring(7) : ip;
     }
-
-    function normalizeCellValue(value: unknown): string | number | unknown {
-        if (typeof value !== "string") return value ?? "N/A";
-        return value.startsWith("::ffff:") ? normalizeIP(value) : formatToLocalTime(value);
-    }
-
+    
     function formatToLocalTime(isoTimestamp: string): string {
         // Strict regex to match ISO 8601 format with 'Z' (UTC)
         const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
@@ -124,6 +121,11 @@ export default function Analytics({ pathname, ipApi }: { pathname: string, ipApi
             second: "2-digit",
             timeZoneName: "short", // e.g., "GMT+5"
         });
+    }
+
+    function normalizeCellValue(value: unknown): string | number | unknown {
+        if (typeof value !== "string") return value ?? "N/A";
+        return value.startsWith("::ffff:") ? normalizeIP(value) : formatToLocalTime(value);
     }
 
     return (
