@@ -22,7 +22,7 @@ if [ -z "$NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY" ]; then
 fi
 
 # Run the deployment command
-echo "Deploying with ADMIN_PASSWORD"
+echo "Deploying with ADMIN_PASSWORD & NEXT_PUBLIC_IP_LOCATION_PROVIDER_API_KEY"
 ADMIN_PASSWORD="$ADMIN_PASSWORD" sst deploy
 
 echo "Deployment complete!"
