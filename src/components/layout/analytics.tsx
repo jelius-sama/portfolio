@@ -100,7 +100,30 @@ export default function Analytics({ pathname, ipApi }: { pathname: string, ipApi
 
     function normalizeCellValue(value: unknown): string | number | unknown {
         if (typeof value !== "string") return value ?? "N/A";
-        return value.startsWith("::ffff:") ? normalizeIP(value) : value;
+        return value.startsWith("::ffff:") ? normalizeIP(value) : formatToLocalTime(value);
+    }
+
+    function formatToLocalTime(isoTimestamp: string): string {
+        // Strict regex to match ISO 8601 format with 'Z' (UTC)
+        const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+
+        if (!isoRegex.test(isoTimestamp)) {
+            return isoTimestamp;
+        }
+
+        const date = new Date(isoTimestamp);
+        if (isNaN(date.getTime())) return isoTimestamp; // Double-check validity
+
+        return date.toLocaleString(undefined, {
+            weekday: "long",  // e.g., "Saturday"
+            year: "numeric",
+            month: "long",    // e.g., "March"
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            timeZoneName: "short", // e.g., "GMT+5"
+        });
     }
 
     return (
