@@ -292,7 +292,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div id="root" className={`w-screen md:mx-[16px] relative font-kite`}>
-            <NavigationMenu>{children}</NavigationMenu>
+            <Suspense>
+              <NavigationMenu>{children}</NavigationMenu>
+            </Suspense>
           </div>
         </ThemeProvider>
       </body>

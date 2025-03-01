@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import PageLoading from "@/components/layout/page-loading";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -24,9 +24,9 @@ import Image from "next/image";
 import ENV from "@/root/env.mjs";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
-import { Label } from "../ui/label";
+import { Label } from "@/components/ui/label";
 import { useAtomValue } from "jotai";
-import { ipProviderAtom } from "./analytics";
+import { ipProviderAtom } from "@/components/layout/analytics";
 
 export default function NavigationMenu({
   children,
@@ -121,7 +121,9 @@ export default function NavigationMenu({
           className={`md:hidden z-30 ${pathname === ENV.routes.links ? "!hidden" : ""
             }`}
         >
-          <NavigationSheet />
+          <Suspense>
+            <NavigationSheet />
+          </Suspense>
         </div>
         <div
           id="header-title-container"
