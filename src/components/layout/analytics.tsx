@@ -44,25 +44,81 @@ export default function Analytics({ pathname, ipApi }: { pathname: string, ipApi
     }, [ipApi.provider])
 
     useEffect(() => {
-        fetch(process.env.NODE_ENV === "development" ? `/api/test` : `/api/analytics?page=${pathname}`)
+        // Cache for IP data to avoid duplicate API calls
+        const ipCache = new Map();
+        
+        const fetchGeoData = async (ip: string) => {
+            const normalizedIP = normalizeIP(ip);
+            
+            // Return cached data if available
+            if (ipCache.has(normalizedIP)) {
+                return ipCache.get(normalizedIP);
+            }
+            
+            // Construct URL based on whether API key exists
+            const url = ipApi.apiKey === null 
+                ? `${ipApi.url}/${normalizedIP}` 
+                : `${ipApi.url}/${normalizedIP}?${ipApi.apiKey}`;
+                
+            try {
+                const res = await fetch(url);
+                const geoData = await res.json();
+                
+                // Format data based on provider
+                const formattedData = ipApi.provider === "ipapi" 
+                    ? { 
+                        city: geoData.city, 
+                        region_name: geoData.region_name, 
+                        country_name: geoData.country_name 
+                    } 
+                    : { 
+                        city: geoData.cityName, 
+                        region_name: geoData.regionName, 
+                        country_name: geoData.countryName 
+                    };
+                    
+                // Cache the result
+                ipCache.set(normalizedIP, formattedData);
+                return formattedData;
+            } catch (err) {
+                console.error(`Error fetching geolocation for ${normalizedIP}:`, err);
+                return null;
+            }
+        };
+    
+        const analyticsAPIUrl = process.env.NODE_ENV === "development" 
+            ? `/api/test` 
+            : `/api/analytics?page=${pathname}`;
+            
+        fetch(analyticsAPIUrl)
             .then((res) => res.json())
             .then(async (analyticsData) => {
-                const enrichedData = await Promise.all(
-                    analyticsData.map(async (entry: VisitorAnalytics) => {
-                        const ip = normalizeIP(entry.ip_address);
-                        try {
-                            const res = await fetch(ipApi.apiKey === null ? `${ipApi.url}/${ip}` : `${ipApi.url}/${ip}?${ipApi.apiKey}`);
-                            const geoData = await res.json();
-                            return ipApi.provider === "ipapi" ? { ...entry, city: geoData.city, region_name: geoData.region_name, country_name: geoData.country_name } : { ...entry, city: geoData.cityName, region_name: geoData.regionName, country_name: geoData.countryName };
-                        } catch (err) {
-                            console.error(`Error fetching geolocation for ${ip}:`, err);
-                            return entry;
-                        }
-                    })
-                );
-                setData(enrichedData);
+                try {
+                    // Process data in batches to avoid overwhelming the API service
+                    const batchSize = 5;
+                    const enrichedData = [];
+                    
+                    for (let i = 0; i < analyticsData.length; i += batchSize) {
+                        const batch = analyticsData.slice(i, i + batchSize);
+                        const batchResults = await Promise.all(
+                            batch.map(async (entry: VisitorAnalytics) => {
+                                const geoData = await fetchGeoData(entry.ip_address);
+                                return geoData ? { ...entry, ...geoData } : entry;
+                            })
+                        );
+                        enrichedData.push(...batchResults);
+                    }
+                    
+                    setData(enrichedData);
+                } catch (err) {
+                    console.error("Error processing analytics data:", err);
+                    setData(analyticsData); // Set original data on error
+                }
             })
-            .catch((err) => console.error("Error fetching analytics:", err));
+            .catch((err) => {
+                console.error("Error fetching analytics:", err);
+                setData([]); // Set empty array on fetch error
+            });
     }, [pathname, ipApi.url, ipApi.apiKey, ipApi.provider, refreshTracker]);
 
     const columns: ColumnDef<VisitorAnalytics>[] = [
