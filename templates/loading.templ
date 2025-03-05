@@ -1,0 +1,7 @@
+package templates
+
+templ Loading(id string) {
+    <div id={id} class="hidden text-center font-bold p-2 htmx-request:block">
+        { children... }
+    </div>
+}

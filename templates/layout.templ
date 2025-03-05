@@ -3,6 +3,7 @@ package templates
 type LayoutProp struct {
     Meta templ.Component
     Page templ.Component
+    // Loading templ.Component
 }
 
 templ script() {
@@ -50,9 +51,14 @@ templ Layout(props LayoutProp) {
     </head>
     <body class="m-2">
         <nav class="flex flex-row gap-x-2 text-blue-600">
-            <a href="/" hx-get="/" hx-target="main" hx-push-url="true">Home</a>
-            <a href="/links" hx-get="/links" hx-target="main" hx-push-url="true">Links</a>
+            <a href="/" hx-get="/" hx-target="main" hx-push-url="true" hx-indicator="#loading">Home</a>
+            <a href="/links" hx-get="/links" hx-target="main" hx-push-url="true" hx-indicator="#loading">Links</a>
         </nav>
+
+        @Loading("loading") {
+            <p>Loading...</p>
+        }
+        
         <main>
             @props.Page
         </main>

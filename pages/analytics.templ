@@ -1,9 +1,17 @@
 package pages
 
-templ Analytics(name string) {
-		<div>Hello, { name }</div>
-}
+// import "portfolio/templates"
 
 templ AnalyticsMeta() {
 	<title>Analytics</title>
+}
+
+// templ AnalyticsLoading() {
+//     @templates.Loading("analytics") {
+//         <p>Loading analytics...</p>
+//     }
+// }
+
+templ Analytics(name string) {
+		<div>Hello, { name }</div>
 }
