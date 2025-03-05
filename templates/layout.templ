@@ -1,0 +1,63 @@
+package templates
+
+type LayoutProp struct {
+    Meta templ.Component
+    Page templ.Component
+}
+
+templ script() {
+    <script type="module">
+        function updateHead() {
+            fetch(window.location.pathname, {
+                headers: {
+                    "HX-Request": "true",
+                    "HX-Trigger": "updateMetaRequest" // Special request for metadata
+                }
+            })
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, "text/html");
+
+                    // Yoink (remove) all non-global head elements
+                    document.head.querySelectorAll("*:not([data-global='true'])").forEach(el => el.remove());
+
+                    // Append new head elements (excluding global ones)
+                    doc.head.childNodes.forEach(newEl => {
+                        if (!newEl.hasAttribute || newEl.getAttribute("data-global") !== "true") {
+                            document.head.appendChild(newEl.cloneNode(true));
+                        }
+                    });
+                });
+        }
+
+        document.addEventListener("htmx:afterSwap", updateHead);
+        document.addEventListener("updateMeta", updateHead); // Listen for the server trigger
+    </script>
+}
+
+templ Layout(props LayoutProp) {
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8" data-global="true" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" data-global="true" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" data-global="true" />
+        <script src="/assets/js/htmx.js" data-global="true"></script>
+        <script src="/assets/js/state.js" type="module" data-global="true"></script>
+        <link rel="stylesheet" href="/assets/css/index.min.css" data-global="true" />
+        @props.Meta
+    </head>
+    <body class="m-2">
+        <nav class="flex flex-row gap-x-2 text-blue-600">
+            <a href="/" hx-get="/" hx-target="main" hx-push-url="true">Home</a>
+            <a href="/links" hx-get="/links" hx-target="main" hx-push-url="true">Links</a>
+        </nav>
+        <main>
+            @props.Page
+        </main>
+
+        @script()
+    </body>
+    </html>
+}

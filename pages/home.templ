@@ -1,0 +1,48 @@
+package pages
+
+templ HomeMeta() {
+    <title>Jelius' Portfolio</title>
+}
+
+templ Home() {
+    <p>Home Page</p>
+    <p data-id="counter">Count: 0</p>
+    <button data-id="incrementer">Increment</button>
+    <button data-id="decrementer">Decrement</button>
+    @script()
+}
+
+templ script() {
+    <script type="module">
+        import { counter } from "/assets/js/state.js";
+
+        function initializeCounter() {
+            const counterElement = document.querySelector('[data-id="counter"]');
+            const incrementButton = document.querySelector('[data-id="incrementer"]');
+            const decrementButton = document.querySelector('[data-id="decrementer"]');
+
+            if (!counterElement || !incrementButton || !decrementButton) return;
+
+            let count = counter.getCount();
+
+            function updateCounter() {
+                counterElement.textContent = `Count: ${count}`;
+            }
+
+            incrementButton.addEventListener("click", () => {
+                counter.setCount(++count);
+                updateCounter();
+            });
+
+            decrementButton.addEventListener("click", () => {
+                counter.setCount(--count);
+                updateCounter();
+            });
+
+            updateCounter();
+        }
+
+        document.addEventListener("DOMContentLoaded", initializeCounter);
+        document.addEventListener("htmx:afterSwap", initializeCounter);
+    </script>
+}
