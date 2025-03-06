@@ -1,9 +1,10 @@
 package ui
 
 templ ThemeToggle() {
-    <button data-id="light">Light</button>
-    <button data-id="dark">Dark</button>
-    <button data-id="system">System</button>
+    @Button(ButtonProps{Text: "Light", Attributes: templ.Attributes{"data-id": "light"}})
+	@Button(ButtonProps{Text: "Dark", Attributes: templ.Attributes{"data-id": "dark"}})
+	@Button(ButtonProps{Text: "System", Attributes: templ.Attributes{"data-id": "system"}})
+		
     @script()
 }
 

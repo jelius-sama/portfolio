@@ -29,7 +29,15 @@ func ThemeToggle() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<button data-id=\"light\">Light</button> <button data-id=\"dark\">Dark</button> <button data-id=\"system\">System</button>")
+		templ_7745c5c3_Err = Button(ButtonProps{Text: "Light", Attributes: templ.Attributes{"data-id": "light"}}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = Button(ButtonProps{Text: "Dark", Attributes: templ.Attributes{"data-id": "dark"}}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = Button(ButtonProps{Text: "System", Attributes: templ.Attributes{"data-id": "system"}}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -62,7 +70,7 @@ func script() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<script type=\"module\">\n        import { themeStore } from \"/assets/js/state.js\";\n\n        function initializeThemeToggle() {\n            const lightBtn = document.querySelector('[data-id=\"light\"]');\n            const darkBtn = document.querySelector('[data-id=\"dark\"]');\n            const systemBtn = document.querySelector('[data-id=\"system\"]');\n\n            if (!lightBtn || !darkBtn || !systemBtn) return;\n\n            lightBtn.addEventListener(\"click\", () => {\n                themeStore.setTheme(\"light\");\n            });\n\n            darkBtn.addEventListener(\"click\", () => {\n                themeStore.setTheme(\"dark\");\n            });\n\n            systemBtn.addEventListener(\"click\", () => {\n                themeStore.setTheme(\"system\");\n            });  \n        }\n\n        document.addEventListener(\"DOMContentLoaded\", initializeThemeToggle);\n        document.addEventListener(\"htmx:afterSwap\", initializeThemeToggle);\n    </script>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<script type=\"module\">\n        import { themeStore } from \"/assets/js/state.js\";\n\n        function initializeThemeToggle() {\n            const lightBtn = document.querySelector('[data-id=\"light\"]');\n            const darkBtn = document.querySelector('[data-id=\"dark\"]');\n            const systemBtn = document.querySelector('[data-id=\"system\"]');\n\n            if (!lightBtn || !darkBtn || !systemBtn) return;\n\n            lightBtn.addEventListener(\"click\", () => {\n                themeStore.setTheme(\"light\");\n            });\n\n            darkBtn.addEventListener(\"click\", () => {\n                themeStore.setTheme(\"dark\");\n            });\n\n            systemBtn.addEventListener(\"click\", () => {\n                themeStore.setTheme(\"system\");\n            });  \n        }\n\n        document.addEventListener(\"DOMContentLoaded\", initializeThemeToggle);\n        document.addEventListener(\"htmx:afterSwap\", initializeThemeToggle);\n    </script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

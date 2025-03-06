@@ -124,7 +124,7 @@ func Layout(props LayoutProp) templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<!doctype html><html><head><meta charset=\"UTF-8\" data-global=\"true\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" data-global=\"true\"><meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\" data-global=\"true\"><meta name=\"robots\" content=\"index, follow\" data-global=\"true\"><script src=\"/assets/js/htmx.js\" data-global=\"true\"></script><script src=\"/assets/js/state.js\" type=\"module\" data-global=\"true\"></script><link rel=\"stylesheet\" href=\"/assets/css/index.min.css\" data-global=\"true\"><link rel=\"icon\" href=\"/assets/images/jelius.jpg\" data-global=\"true\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<!doctype html><html><head><meta charset=\"UTF-8\" data-global=\"true\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" data-global=\"true\"><meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\" data-global=\"true\"><meta name=\"robots\" content=\"index, follow\" data-global=\"true\"><script src=\"/assets/js/htmx.js\" data-global=\"true\"></script><script defer src=\"/assets/js/alpine.js\" data-global=\"true\"></script><script src=\"/assets/js/state.js\" type=\"module\" data-global=\"true\"></script><link rel=\"stylesheet\" href=\"/assets/css/index.min.css\" data-global=\"true\"><link rel=\"icon\" href=\"/assets/images/jelius.jpg\" data-global=\"true\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
