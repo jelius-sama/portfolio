@@ -1,4 +1,6 @@
-package templates
+package layout
+
+import "portfolio/component/ui"
 
 type LayoutProp struct {
     Meta templ.Component
@@ -34,6 +36,51 @@ templ script() {
 
         document.addEventListener("htmx:afterSwap", updateHead);
         document.addEventListener("updateMeta", updateHead); // Listen for the server trigger
+    </script>
+}
+
+templ themeScript() {
+    <script type="module">
+        import { themeStore } from "/assets/js/state.js";
+
+        const htmlEle = document.documentElement;
+
+        const getResolvedTheme = () => {
+            const theme = themeStore.getTheme();
+            if (theme === "system") {
+                return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
+            return theme;
+        };
+
+        const applyTheme = () => {
+            const resolvedTheme = getResolvedTheme();
+
+            // Remove any existing theme class (dark, light)
+            htmlEle.classList.remove("dark", "light");
+
+            // Apply the resolved theme
+            htmlEle.classList.add(resolvedTheme);
+        };
+
+        // Apply theme immediately
+        applyTheme();
+
+        // Listen for localStorage changes (cross-tab sync)
+        window.addEventListener("storage", (event) => {
+            if (event.key === themeStore.themeKey()) {
+                applyTheme();
+            }
+        });
+
+        // Listen for manual theme changes (same tab)
+        window.addEventListener("themeChange", applyTheme);
+
+        // Listen for system preference changes (e.g., user switches dark/light mode)
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
+
+        // Apply theme after HTMX swaps
+        document.addEventListener("htmx:afterSwap", applyTheme);
     </script>
 }
 
@@ -163,6 +210,7 @@ templ Layout(props LayoutProp) {
     </head>
     <body class="m-2">
         @Navigation()
+        @ui.ThemeToggle()
 
         @Loading("loading") {
             <p>Loading...</p>
@@ -173,6 +221,7 @@ templ Layout(props LayoutProp) {
         </main>
 
         @script()
+        @themeScript()
     </body>
     </html>
 }

@@ -1,7 +1,7 @@
-package templates
+package layout
 
 templ Navigation() {
-    <nav class="flex flex-row gap-x-2 text-blue-600">
+    <nav class="flex flex-row gap-x-2 text-destructive">
         <a href="/" hx-get="/" hx-target="main" hx-push-url="true" hx-indicator="#loading">Home</a>
         <a href="/links" hx-get="/links" hx-target="main" hx-push-url="true" hx-indicator="#loading">Links</a>
     </nav>

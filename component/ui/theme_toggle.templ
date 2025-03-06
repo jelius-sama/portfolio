@@ -1,0 +1,37 @@
+package ui
+
+templ ThemeToggle() {
+    <button data-id="light">Light</button>
+    <button data-id="dark">Dark</button>
+    <button data-id="system">System</button>
+    @script()
+}
+
+templ script() {
+    <script type="module">
+        import { themeStore } from "/assets/js/state.js";
+
+        function initializeThemeToggle() {
+            const lightBtn = document.querySelector('[data-id="light"]');
+            const darkBtn = document.querySelector('[data-id="dark"]');
+            const systemBtn = document.querySelector('[data-id="system"]');
+
+            if (!lightBtn || !darkBtn || !systemBtn) return;
+
+            lightBtn.addEventListener("click", () => {
+                themeStore.setTheme("light");
+            });
+
+            darkBtn.addEventListener("click", () => {
+                themeStore.setTheme("dark");
+            });
+
+            systemBtn.addEventListener("click", () => {
+                themeStore.setTheme("system");
+            });  
+        }
+
+        document.addEventListener("DOMContentLoaded", initializeThemeToggle);
+        document.addEventListener("htmx:afterSwap", initializeThemeToggle);
+    </script>
+}

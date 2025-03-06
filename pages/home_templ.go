@@ -8,7 +8,7 @@ package pages
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-// import "portfolio/templates"
+// import "portfolio/component/layout"
 func HomeMeta() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -39,7 +39,7 @@ func HomeMeta() templ.Component {
 }
 
 //	templ HomeLoading() {
-//	    @templates.Loading("home") {
+//	    @layout.Loading("home") {
 //	        <p>Loading home...</p>
 //	    }
 //	}

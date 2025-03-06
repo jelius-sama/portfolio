@@ -2,7 +2,7 @@ package utils
 
 import (
 	"net/http"
-	"portfolio/templates"
+	"portfolio/component/layout"
 
 	"github.com/a-h/templ"
 )
@@ -22,7 +22,7 @@ func RenderPage(w http.ResponseWriter, r *http.Request, page templ.Component, me
 	}
 
 	// Full page load with layout
-	templ.Handler(templates.Layout(templates.LayoutProp{
+	templ.Handler(layout.Layout(layout.LayoutProp{
 		Page: page,
 		Meta: meta,
 	})).ServeHTTP(w, r)
