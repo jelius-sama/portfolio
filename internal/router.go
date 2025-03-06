@@ -28,6 +28,7 @@ func Router() http.Handler {
 
 		handler.NotFound(w, r)
 	}),
+		middleware.NoCacheMiddleware,
 		middleware.RecoverMiddleware,
 		middleware.LoggerMiddleware,
 	)

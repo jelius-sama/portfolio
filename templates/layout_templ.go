@@ -43,7 +43,7 @@ func script() templ.Component {
 	})
 }
 
-func Layout(props LayoutProp) templ.Component {
+func appleWebApp() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -64,7 +64,40 @@ func Layout(props LayoutProp) templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<!doctype html><html><head><meta charset=\"UTF-8\" data-global=\"true\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" data-global=\"true\"><meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\" data-global=\"true\"><script src=\"/assets/js/htmx.js\" data-global=\"true\"></script><script src=\"/assets/js/state.js\" type=\"module\" data-global=\"true\"></script><link rel=\"stylesheet\" href=\"/assets/css/index.min.css\" data-global=\"true\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<meta name=\"apple-mobile-web-app-capable\" content=\"yes\" data-global=\"true\"><meta name=\"apple-mobile-web-app-title\" content=\"Jelius\" data-global=\"true\"><link rel=\"apple-touch-icon\" href=\"/assets/icons/apple-icon-180.png\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2048-2732.jpg\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2732-2048.jpg\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1668-2388.jpg\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2388-1668.jpg\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1536-2048.jpg\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2048-1536.jpg\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1488-2266.jpg\" media=\"(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2266-1488.jpg\" media=\"(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1640-2360.jpg\" media=\"(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2360-1640.jpg\" media=\"(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1668-2224.jpg\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2224-1668.jpg\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1620-2160.jpg\" media=\"(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2160-1620.jpg\" media=\"(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1290-2796.jpg\" media=\"(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2796-1290.jpg\" media=\"(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1179-2556.jpg\" media=\"(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2556-1179.jpg\" media=\"(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1284-2778.jpg\" media=\"(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2778-1284.jpg\" media=\"(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1170-2532.jpg\" media=\"(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2532-1170.jpg\" media=\"(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1125-2436.jpg\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2436-1125.jpg\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1242-2688.jpg\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2688-1242.jpg\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-828-1792.jpg\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1792-828.jpg\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1242-2208.jpg\" media=\"(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-2208-1242.jpg\" media=\"(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-750-1334.jpg\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1334-750.jpg\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-640-1136.jpg\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><link href=\"/assets/icons/apple-splash-1136-640.jpg\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)\" rel=\"apple-touch-startup-image\" data-global=\"true\"><meta name=\"apple-mobile-web-app-status-bar-style\" content=\"default\" data-global=\"true\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+func Layout(props LayoutProp) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var3 == nil {
+			templ_7745c5c3_Var3 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<!doctype html><html><head><meta charset=\"UTF-8\" data-global=\"true\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" data-global=\"true\"><meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\" data-global=\"true\"><meta name=\"robots\" content=\"index, follow\" data-global=\"true\"><script src=\"/assets/js/htmx.js\" data-global=\"true\"></script><script src=\"/assets/js/state.js\" type=\"module\" data-global=\"true\"></script><link rel=\"stylesheet\" href=\"/assets/css/index.min.css\" data-global=\"true\"><link rel=\"icon\" href=\"/assets/images/jelius.jpg\" data-global=\"true\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = appleWebApp().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -72,11 +105,15 @@ func Layout(props LayoutProp) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</head><body class=\"m-2\"><nav class=\"flex flex-row gap-x-2 text-blue-600\"><a href=\"/\" hx-get=\"/\" hx-target=\"main\" hx-push-url=\"true\" hx-indicator=\"#loading\">Home</a> <a href=\"/links\" hx-get=\"/links\" hx-target=\"main\" hx-push-url=\"true\" hx-indicator=\"#loading\">Links</a></nav>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</head><body class=\"m-2\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var3 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Err = Navigation().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var4 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -88,17 +125,17 @@ func Layout(props LayoutProp) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<p>Loading...</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<p>Loading...</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = Loading("loading").Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Loading("loading").Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<main>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -106,7 +143,7 @@ func Layout(props LayoutProp) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</main>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -114,7 +151,7 @@ func Layout(props LayoutProp) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

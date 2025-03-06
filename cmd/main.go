@@ -15,10 +15,11 @@ func main() {
 	os.Setenv("env", Environment)
 
 	if Environment != "production" {
+		// Air rebuilds the whole application when a change is detected so why do we need tailwind-watch
 		err := exec.Command("make", "tailwind-build").Run()
 
 		if err != nil {
-			fmt.Println("Executing tailwind-build failed unexpectedly.")
+			fmt.Printf("Executing tailwind-build failed: %v\n", err)
 		}
 	}
 
