@@ -86,9 +86,7 @@ export default function Analytics({ pathname, ipApi }: { pathname: string, ipApi
             }
         };
     
-        const analyticsAPIUrl = process.env.NODE_ENV === "development" 
-            ? `/api/test` 
-            : `/api/analytics?page=${pathname}`;
+        const analyticsAPIUrl = `/api/analytics?page=${pathname}`;
             
         fetch(analyticsAPIUrl)
             .then((res) => res.json())
