@@ -1,5 +1,6 @@
 package pages
 
+import "portfolio/component/ui"
 // import "portfolio/component/layout"
 
 templ HomeMeta() {
@@ -15,8 +16,8 @@ templ HomeMeta() {
 templ Home() {
     <p>Home Page</p>
     <p data-id="counter">Count: 0</p>
-    <button data-id="incrementer">Increment</button>
-    <button data-id="decrementer">Decrement</button>
+    @ui.Button(ui.ButtonProps{Text: "Decrement", Attributes: templ.Attributes{"data-id": "decrementer"}})
+    @ui.Button(ui.ButtonProps{Text: "Increment", Attributes: templ.Attributes{"data-id": "incrementer"}})
     @script()
 }
 

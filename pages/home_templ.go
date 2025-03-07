@@ -8,6 +8,8 @@ package pages
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
+import "portfolio/component/ui"
+
 // import "portfolio/component/layout"
 func HomeMeta() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -64,7 +66,15 @@ func Home() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<p>Home Page</p><p data-id=\"counter\">Count: 0</p><button data-id=\"incrementer\">Increment</button> <button data-id=\"decrementer\">Decrement</button>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<p>Home Page</p><p data-id=\"counter\">Count: 0</p>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = ui.Button(ui.ButtonProps{Text: "Decrement", Attributes: templ.Attributes{"data-id": "decrementer"}}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = ui.Button(ui.ButtonProps{Text: "Increment", Attributes: templ.Attributes{"data-id": "incrementer"}}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
