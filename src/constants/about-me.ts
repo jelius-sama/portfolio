@@ -27,15 +27,15 @@ export const About: AboutInterface = {
             { technology: "Svelte", level: "Experienced" },
         ],
         'Backend Development': [
-            { technology: "NodeJS", level: "Beginner" },
-            { technology: "Postgres", level: "Intermediate" },
+            { technology: "Go", level: "Learning" },
+            { technology: "Postgres", level: "Learning" },
         ],
-        'Software Development': [
-            { technology: 'Go', level: 'Beginner' },
+        "Languages": [
+            { technology: 'Go', level: 'Learning' },
             { technology: 'C++', level: 'Beginner' },
             { technology: 'Typescript', level: 'Experienced' },
             { technology: 'Javascript', level: 'Experienced' },
-            { technology: 'Swift', level: 'Beginner' }
+            { technology: 'Swift', level: 'Learning' }
         ]
     },
     projects_demo: [

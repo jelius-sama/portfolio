@@ -2,11 +2,11 @@ export type TechStack = "Postgres" | "ReactJS" | "NextJS" | "React Native" | "Sv
 
 export type Profession = "Student" | "Software Developer" | "Software Engineer" | "Fullstack Developer" | "Frontend Developer" | "Backend Developer";
 
-export type Field = "Software Development" | "Software Engineer" | "Fullstack Development" | "Frontend Development" | "Backend Development" | "Web Development" | "App Development" | "Game Development" | "AI Development" | "Cyber Security" | "Database";
+export type Field = "Software Development" | "Software Engineer" | "Fullstack Development" | "Frontend Development" | "Backend Development" | "Web Development" | "App Development" | "Game Development" | "AI Development" | "Cyber Security" | "Database" | "Programming Languages" | "Languages";
 
 export type Explore = {
     technology: TechStack,
-    level: "Experienced" | "Intermediate" | "Beginner";
+    level: "Experienced" | "Intermediate" | "Beginner" | "Learning";
 };
 
 export interface About {

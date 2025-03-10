@@ -7,7 +7,6 @@ export default function Analytics() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!pathname) return;
     if (process.env.NODE_ENV === "development") return;
 
     // Send analytics data to the server
