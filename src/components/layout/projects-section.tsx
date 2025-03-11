@@ -1,27 +1,23 @@
-'use client';
+"use client"
 
-import Image from "next/image";
-import SectionTitle from "@/components/layout/section-title";
-import { Button } from "@/components/ui/button";
-import { ChevronDownIcon, ExternalLink, Github } from 'lucide-react';
-import { useScrollToSection } from "@/hooks/useScrollToSection";
-import {
-    Card,
-    CardContent,
-    CardFooter,
-} from "@/components/ui/card";
-import Title from "@/components/ui/title";
+import Image from "next/image"
+import SectionTitle from "@/components/layout/section-title"
+import { Button } from "@/components/ui/button"
+import { ChevronDownIcon, ExternalLink, Github } from "lucide-react"
+import { useScrollToSection } from "@/hooks/useScrollToSection"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import Title from "@/components/ui/title"
 
 // Project type definition
 type Project = {
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-    technologies?: string[];
-    githubUrl?: string;
-    liveUrl?: string;
-};
+    id: string
+    title: string
+    description: string
+    image: string
+    technologies?: string[]
+    githubUrl?: string
+    liveUrl?: string
+}
 
 // Projects data - you can add more projects in the future
 const PROJECTS: Project[] = [
@@ -32,13 +28,13 @@ const PROJECTS: Project[] = [
         image: "/assets/project-pixelle.png",
         technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
         githubUrl: "https://github.com/jelius-sama/pixelle-demo",
-        liveUrl: "https://dbpfjfsp23llw.cloudfront.net/"
+        liveUrl: "https://dbpfjfsp23llw.cloudfront.net/",
     },
     // You can add more projects here in the future
-];
+]
 
 export default function ProjectsSection() {
-    const scrollToSection = useScrollToSection();
+    const scrollToSection = useScrollToSection()
 
     return (
         <section id="projects" className="min-h-screen w-full relative pb-[calc(64px_+_16px)] pt-[64px]">
@@ -46,28 +42,36 @@ export default function ProjectsSection() {
 
             {PROJECTS.length === 0 ? (
                 <div className="flex items-center h-full justify-center">
-                    <Title varient={"subtitle"} className="text-center underline">No Projects</Title>
+                    <Title varient={"subtitle"} className="text-center underline">
+                        No Projects
+                    </Title>
                 </div>
             ) : (
                 <div className="container mx-auto mt-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {PROJECTS.map((project) => (
-                            <Card key={project.id} className="overflow-hidden border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+                            <Card
+                                key={project.id}
+                                className="overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-sm"
+                            >
                                 <div className="relative aspect-video overflow-hidden mt-4 mx-4 rounded-t-md">
                                     <Image
-                                        src={project.image}
+                                        src={project.image || "/placeholder.svg"}
                                         alt={project.title}
                                         fill={true}
                                         className="object-cover object-top"
                                     />
                                 </div>
                                 <CardContent className="p-4">
-                                    <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-                                    <p className="text-zinc-400 text-sm mb-3">{project.description}</p>
+                                    <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2">{project.title}</h3>
+                                    <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-3">{project.description}</p>
                                     {project.technologies && (
                                         <div className="flex flex-wrap gap-2 mb-3">
                                             {project.technologies.map((tech) => (
-                                                <span key={tech} className="text-xs px-2 py-1 bg-zinc-800 text-zinc-300 rounded-full">
+                                                <span
+                                                    key={tech}
+                                                    className="text-xs px-2 py-1 bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-full"
+                                                >
                                                     {tech}
                                                 </span>
                                             ))}
@@ -98,9 +102,15 @@ export default function ProjectsSection() {
                 </div>
             )}
 
-            <Button className='absolute right-[16px] bottom-[16px] rounded-full h-10 w-10 p-2' variant={'outline'} onClick={() => scrollToSection('contacts')} aria-label="Scroll to contacts section">
+            <Button
+                className="absolute right-[16px] bottom-[16px] rounded-full h-10 w-10 p-2"
+                variant={"outline"}
+                onClick={() => scrollToSection("contacts")}
+                aria-label="Scroll to contacts section"
+            >
                 <ChevronDownIcon />
             </Button>
         </section>
-    );
+    )
 }
+
