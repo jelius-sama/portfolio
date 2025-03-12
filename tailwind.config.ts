@@ -1,10 +1,13 @@
 import type { Config } from "tailwindcss";
+import type { PluginAPI } from "tailwindcss/types/config";
+import twAnimate from "tailwindcss-animate";
 
 const config: Config = {
 	darkMode: ["class"],
 	content: [
 		"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+		"./src/icons/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
@@ -65,8 +68,8 @@ const config: Config = {
 		}
 	},
 	plugins: [
-		require("tailwindcss-animate"),
-		function ({ addComponents }: { addComponents: any; }) {
+		twAnimate,
+		function ({ addComponents }: PluginAPI) {
 			addComponents({
 				'.small-container': {
 					maxWidth: '1000px',  // Default for larger screens
