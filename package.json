@@ -5,12 +5,9 @@
   "scripts": {
     "build": "bunx --bun next build",
     "dev": "bunx --bun next dev",
-    "sst-dev": "bash ./dev.sh",
     "lint": "bunx --bun next lint",
     "postbuild": "bunx --bun next-sitemap --config next-sitemap.config.mjs",
-    "start": "bunx --bun next start",
-    "undeploy": "sst remove",
-    "deploy": "bash ./deploy.sh"
+    "start": "bunx --bun next start"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
