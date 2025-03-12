@@ -5,14 +5,6 @@
 
 declare module "sst" {
   export interface Resource {
-    "Portfolio": {
-      "type": "sst.aws.Nextjs"
-      "url": string
-    }
-    "PortfolioAnalytics": {
-      "name": string
-      "type": "sst.aws.Dynamo"
-    }
   }
 }
 /// <reference path="sst-env.d.ts" />

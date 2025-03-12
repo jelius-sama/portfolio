@@ -4,12 +4,17 @@ import { headers } from "next/headers";
 import { cookies } from "next/headers";
 import crypto from 'crypto'
 import { notFound } from "next/navigation";
+import { ANALYTICS_READY } from "@/components/analytics";
 
 export const dynamic = "force-dynamic";
 
 export type IpApi = "free-ipapi" | "ipapi";
 
 export default async function AnalyticsPage({ searchParams }: { searchParams: { ipApi?: IpApi } }) {
+    if (!ANALYTICS_READY) {
+        notFound()
+    };
+
     const pathname = headers().get("x-current-path") || "/analytics";
     const authCookie = cookies().get("admin-pass");
 
