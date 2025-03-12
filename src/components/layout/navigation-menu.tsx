@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import PageLoading from "@/components/layout/page-loading";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -17,16 +17,13 @@ import {
 import { NavLinks, PortfolioSections } from "@/constants/portfolio-sections";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
 // import user from '/assets/jelius.jpg';
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { MenuIcon, RefreshCcw } from "lucide-react";
 import { About } from "@/constants/about-me";
 import Image from "next/image";
 import ENV from "@/root/env.mjs";
 import Link from "next/link";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { atom, useAtom, useAtomValue } from "jotai";
-import { ipProviderAtom } from "@/components/layout/analytics";
+import { atom, useAtom } from "jotai";
 import * as motion from "motion/react-client"
 
 export const refreshTrackerAtom = atom<number | null>(null);
@@ -40,7 +37,6 @@ export default function NavigationMenu({
 
   const scrollToSection = useScrollToSection();
   const pathname = usePathname();
-  const router = useRouter();
 
   const [isProfileOutOfView, setIsProfileOutOfView] = useState<boolean | null>(
     null
@@ -50,8 +46,6 @@ export default function NavigationMenu({
     null
   );
   const [tryAgain, setTryAgain] = useState<number>(0);
-  const ipProvider = useAtomValue(ipProviderAtom)
-  const searchParams = useSearchParams()
   const [refreshTracker, setRefreshTracker] = useAtom(refreshTrackerAtom);
   const [animate, setAnimate] = useState(false);
 
@@ -62,16 +56,6 @@ export default function NavigationMenu({
     const timeout = setTimeout(() => setAnimate(false), 500); // Reset after animation
     return () => clearTimeout(timeout);
   }, [refreshTracker]);
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set(name, value)
-
-      return params.toString()
-    },
-    [searchParams]
-  )
 
   useEffect(() => {
     if (pathname !== ENV.routes.links) return;
@@ -205,7 +189,7 @@ export default function NavigationMenu({
           ) : null}
 
           {pathname === "/analytics" && (
-            <div className="flex flex-row gap-x-2 ml-4 items-center">
+            <div className="flex flex-row gap-x-2 items-center">
               <Button variant={'outline'} size={'icon'} onClick={() => {
                 setRefreshTracker(Date.now())
               }}>
@@ -219,13 +203,6 @@ export default function NavigationMenu({
                   <RefreshCcw size={18} />
                 </motion.div>
               </Button>
-              <Switch id="ip-switch"
-                checked={ipProvider === "free-ipapi"}
-                onCheckedChange={() => {
-                  router.push(pathname + '?' + createQueryString('ipApi', ipProvider === "ipapi" ? "free-ipapi" : "ipapi"))
-                }}
-              />
-              <Label htmlFor="ip-switch">{ipProvider === "ipapi" ? "IP API" : "Free IP API"}</Label>
             </div>
           )}
         </div>
@@ -243,19 +220,6 @@ export default function NavigationMenu({
 function NavigationSheet() {
   const scrollToSection = useScrollToSection();
   const pathname = usePathname();
-  const router = useRouter();
-  const ipProvider = useAtomValue(ipProviderAtom)
-  const searchParams = useSearchParams()
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set(name, value)
-
-      return params.toString()
-    },
-    [searchParams]
-  )
 
   return (
     <Sheet>
@@ -302,18 +266,6 @@ function NavigationSheet() {
             )
           )}
         </div>
-
-        {pathname === "/analytics" && (
-          <div className="flex flex-row gap-x-2 items-center">
-            <Switch id="ip-switch"
-              checked={ipProvider === "free-ipapi"}
-              onCheckedChange={() => {
-                router.push(pathname + '?' + createQueryString('ipApi', ipProvider === "ipapi" ? "free-ipapi" : "ipapi"))
-              }}
-            />
-            <Label htmlFor="ip-switch">{ipProvider === "ipapi" ? "IP API" : "Free IP API"}</Label>
-          </div>
-        )}
       </SheetContent>
     </Sheet>
   );
