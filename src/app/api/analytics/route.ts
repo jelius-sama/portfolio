@@ -1,7 +1,9 @@
 import { createAdminClient } from "@/supabase/createClient";
 import { PostgrestError } from "@supabase/supabase-js";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { UAParser } from "ua-parser-js";
+import crypto from 'crypto'
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +33,34 @@ function normalizeIP(ip: string): string {
 }
 
 export async function GET(req: NextRequest) {
+  const authCookie = cookies().get("admin-pass");
+
+  const isAuthenticated = () => {
+    if (!authCookie) return false;
+
+    try {
+      if (typeof process.env.ADMIN_PASSWORD !== "string") {
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
+      }
+
+      const hashedInput = crypto
+        .createHash('sha256')
+        .update(process.env.ADMIN_PASSWORD)
+        .digest('hex');
+
+      return hashedInput === authCookie.value;
+    } catch (error) {
+      console.log(error)
+      return false;
+    }
+  };
+
+  const authenticated = isAuthenticated();
+
+  if (!authenticated) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const supabase = createAdminClient();
 
   const page = Number(req.nextUrl.searchParams.get("page")) || 1;
@@ -51,6 +81,19 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const allowedOrigins = [
+    "https://jelius.dev",
+    "https://www.jelius.dev",
+    "https://dashboard.jelius.dev",
+    "https://portfolio.jelius.dev",
+  ];
+
+  const origin = req.headers.get("origin");
+
+  if (!origin || !allowedOrigins.includes(origin)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const supabase = createAdminClient();
 
   const rawIpAddress = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";

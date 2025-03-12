@@ -20,7 +20,7 @@ export default function Analytics() {
         try {
             const res = await fetch(`/api/analytics?page=1&limit=20`, {
                 method: "GET",
-                headers: { "Content-Type": "application/json" }
+                credentials: "include"
             });
 
             const analyticsData = await res.json();
