@@ -28,7 +28,7 @@ const PROJECTS: Project[] = [
         image: "/assets/project-pixelle.png",
         technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
         githubUrl: "https://github.com/jelius-sama/pixelle-demo",
-        liveUrl: "https://dbpfjfsp23llw.cloudfront.net/",
+        liveUrl: "https://pixelle.jelius.dev/",
     },
     // You can add more projects here in the future
 ]
