@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import useMediaQuery from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
   Drawer,
   DrawerClose,
