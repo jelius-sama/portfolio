@@ -173,19 +173,17 @@ export default function LinksSection() {
                 href={link.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex flex-row flex-nowrap gap-x-12 pl-20 items-center my-3 bg-white py-3 rounded-md transition-all duration-300 border-2 transform ${
-                  activeIndex === index
+                className={`flex flex-row flex-nowrap gap-x-12 pl-20 items-center my-3 bg-white py-3 rounded-md transition-all duration-300 border-2 transform ${activeIndex === index
                     ? isMobile
                       ? pressedStyle.md
                       : hoveredStyle.md
                     : defaultStyle.md
-                } ${
-                  activeIndex === index
+                  } ${activeIndex === index
                     ? isMobile
                       ? pressedStyle.sm
                       : hoveredStyle.sm
                     : defaultStyle.sm
-                }`}
+                  }`}
                 onTouchStart={() => setActiveIndex(index)}
                 onTouchEnd={() => setActiveIndex(null)}
                 onMouseEnter={() => setActiveIndex(index)}

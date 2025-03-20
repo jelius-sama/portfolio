@@ -34,6 +34,7 @@ import {
 import { copyString } from "@/utils";
 import Image from "next/image";
 import ENV from "@/root/env.mjs";
+import X from "@/icons/x";
 
 type ShareProps = {
   [key: string]: {
@@ -53,22 +54,6 @@ const SHARE: ShareProps = [
         copyString(url);
       },
     },
-    WhatsApp: {
-      icon_node: (
-        <Image
-          width={30}
-          height={30}
-          src="/assets/whatsapp-logo.png"
-          className="w-[30px] h-[30px]"
-          alt=" WhatsApp icon"
-        />
-      ),
-      action: function ({ text, url }) {
-        if (typeof window !== "undefined") {
-          window.open(`https://wa.me/?text=${text} - ${url}`, "_blank");
-        }
-      },
-    },
     Email: {
       icon_node: <MailIcon height={30} width={30} />,
       action: function ({ text, url }) {
@@ -84,13 +69,7 @@ const SHARE: ShareProps = [
     },
     X: {
       icon_node: (
-        <Image
-          width={30}
-          height={30}
-          src="/assets/x-brand.svg"
-          className="w-[30px] h-[30px] bg-white rounded-sm"
-          alt="Twitter icon"
-        />
+        <X width={"30px"} height={"30px"} />
       ),
       action: function ({ text, url }) {
         if (typeof window !== "undefined") {
@@ -121,6 +100,22 @@ const SHARE: ShareProps = [
             )}`,
             "_blank"
           );
+        }
+      },
+    },
+    WhatsApp: {
+      icon_node: (
+        <Image
+          width={30}
+          height={30}
+          src="/assets/whatsapp-logo.png"
+          className="w-[30px] h-[30px]"
+          alt=" WhatsApp icon"
+        />
+      ),
+      action: function ({ text, url }) {
+        if (typeof window !== "undefined") {
+          window.open(`https://wa.me/?text=${text} - ${url}`, "_blank");
         }
       },
     },
@@ -188,12 +183,12 @@ export default function LinksShareDialog() {
 }
 
 function ShareForm({ className }: React.ComponentProps<"section">) {
-  const user = "/assets/jelius.jpg";
+  // const user = "/assets/jelius.jpg";
 
   return (
     <section className={cn("", className)}>
       <div className="flex flex-col gap-y-8">
-        <div className="bg-[#342a2b] flex flex-col items-center justify-center rounded-md py-8 gap-y-4">
+        {/* <div className="bg-[#342a2b] flex flex-col items-center justify-center rounded-md py-8 gap-y-4">
           <Image
             alt={`${About.firstName}`}
             height={80}
@@ -203,8 +198,18 @@ function ShareForm({ className }: React.ComponentProps<"section">) {
           />
           <p className="text-center font-semibold text-2xl md:text-3xl !text-white">
             {About.name}
-          </p>
+          </p> */}
+        <div className="aspect-[12/7] flex flex-col items-center justify-center rounded-md overflow-hidden">
+          <Image
+            alt={`${About.firstName}`}
+            height={560}
+            width={960}
+            objectFit="contain"
+            src={'/assets/links.png'}
+            className="w-full h-full"
+          />
         </div>
+        {/* </div> */}
 
         <div className="flex items-center justify-center">
           <Carousel className="w-[calc(100%_-_100px)]">

@@ -25,7 +25,6 @@ const IN_DEV = true
 
 export default function DevAlert() {
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const isHeightSmall = useMediaQuery("(max-height: 700px)")
 
     if (isDesktop) {
         return (
@@ -56,7 +55,7 @@ export default function DevAlert() {
 
     return (
         <Drawer defaultOpen={IN_DEV}>
-            <DrawerContent>
+            <DrawerContent className="h-[96%]">
                 <DrawerHeader className="text-left">
                     <DrawerTitle>Notice</DrawerTitle>
                     <DrawerDescription>
@@ -64,7 +63,7 @@ export default function DevAlert() {
                     </DrawerDescription>
                 </DrawerHeader>
 
-                <div className="flex items-start space-x-2 p-4" style={{ height: `${isHeightSmall ? `60vh` : `75vh`}` }}>
+                <div className="flex items-start space-x-2 p-4">
                     This website is currently in development, and its content is for testing purposes only; it does not reflect any real facts or accurate information.
                 </div>
 

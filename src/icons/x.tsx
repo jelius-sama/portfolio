@@ -1,6 +1,6 @@
-export default function X() {
+export default function X({ width, height }: { width?: string, height?: string }) {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="36px" height="36px" viewBox="0 0 36 36" version="1.1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width={width ? width : "36px"} height={height ? height : "36px"} viewBox="0 0 36 36" version="1.1">
             <g id="surface1">
                 <path
                     className="fill-foreground stroke-none [fill-rule:nonzero] [fill-opacity:1]"
