@@ -1,35 +1,19 @@
-'use client';
+import { useEffect, useState } from "react"
 
-import { useState, useEffect } from "react";
-
-function useMediaQuery(query: string) {
-    // State to store if the media query is matched, initializing with `false`
-    const [matches, setMatches] = useState<boolean>(false);
+export function useMediaQuery(query: string) {
+    const [value, setValue] = useState(false)
 
     useEffect(() => {
-        // Ensure that window is defined before proceeding
-        if (typeof window === 'undefined') return;
+        function onChange(event: MediaQueryListEvent) {
+            setValue(event.matches)
+        }
 
-        const mediaQueryList = window.matchMedia(query);
+        const result = matchMedia(query)
+        result.addEventListener("change", onChange)
+        setValue(result.matches)
 
-        // Set the initial state based on the media query match
-        setMatches(mediaQueryList.matches);
+        return () => result.removeEventListener("change", onChange)
+    }, [query])
 
-        // Update the state whenever the media query result changes
-        const handleChange = (event: MediaQueryListEvent) => {
-            setMatches(event.matches);
-        };
-
-        // Add event listener for changes in the media query
-        mediaQueryList.addEventListener('change', handleChange);
-
-        // Clean up the event listener when the component unmounts or query changes
-        return () => {
-            mediaQueryList.removeEventListener('change', handleChange);
-        };
-    }, [query]);  // Re-run if the query changes
-
-    return matches;  // Return if the query is matched
+    return value
 }
-
-export default useMediaQuery;
