@@ -7,14 +7,17 @@ import { useScrollToSection } from "@/hooks/useScrollToSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { About } from "@/constants/about-me";
 import X from "@/icons/x";
-import { LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { DownloadIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 import Footer from "./footer";
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { useResolvedTheme } from "@/hooks/useResolvedTheme";
 
 export default function ContactsSection() {
   const scrollToSection = useScrollToSection();
   const user = "/assets/jelius.jpg";
+  const theme = useResolvedTheme()
 
   return (
     <section
@@ -22,7 +25,7 @@ export default function ContactsSection() {
       className="min-h-screen w-full relative pb-[calc(64px_+_16px)] pt-[64px]"
     >
       <SectionTitle info={"Get in Touch"} title={"Contacts"} />
-      <div className="flex items-center h-full justify-center mt-5">
+      <div className="flex flex-col gap-y-[64px] items-center h-full justify-center mt-5">
         <Card className="w-full md:w-auto">
           <CardContent className="flex items-center justify-center p-0">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
@@ -83,6 +86,32 @@ export default function ContactsSection() {
             </div>
           </CardContent>
         </Card>
+
+        <section className="relative flex flex-col items-center justify-center gap-y-2">
+          <div className={cn("rounded-lg p-4 w-[300px] aspect-square relative group", theme === "dark" ? "bg-[#1E1E1E]" : "bg-[#F3F4F6]")}>
+            <Image
+              width={300}
+              height={300}
+              src={theme === "dark" ? "/assets/jelius-dev-dark.png" : "/assets/jelius-dev.JPEG"}
+              alt="jelius.dev QR Code"
+              className="group-hover:opacity-50 transition-opacity duration-300 ease-in-out"
+            />
+            <Button
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = theme === "dark" ? "/assets/jelius-dev-dark.png" : "/assets/jelius-dev.JPEG";
+                link.download = theme === "dark" ? "jelius-dev-qr.png" : "jelius-dev-qr.JPEG";
+                link.click();
+              }}
+              size={"icon"}
+              variant={"secondary"}
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out hover:bg-secondary"
+            >
+              <DownloadIcon />
+            </Button>
+          </div>
+          <span>QR Code of this site.</span>
+        </section>
       </div>
 
       <div className="absolute w-full bottom-[calc(16px_+_16px)] flex flex-col justify-center gap-y-4">

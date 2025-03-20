@@ -35,6 +35,7 @@ import { copyString } from "@/utils";
 import Image from "next/image";
 import ENV from "@/root/env.mjs";
 import X from "@/icons/x";
+import { DownloadIcon } from "@radix-ui/react-icons";
 
 type ShareProps = {
   [key: string]: {
@@ -199,15 +200,29 @@ function ShareForm({ className }: React.ComponentProps<"section">) {
           <p className="text-center font-semibold text-2xl md:text-3xl !text-white">
             {About.name}
           </p> */}
-        <div className="aspect-[12/7] flex flex-col items-center justify-center rounded-md overflow-hidden">
+        <div className="aspect-[12/7] flex flex-col items-center justify-center rounded-md overflow-hidden relative group">
           <Image
             alt={`${About.firstName}`}
             height={560}
             width={960}
             objectFit="contain"
             src={'/assets/links.png'}
-            className="w-full h-full"
+            className={`w-full h-full group-hover:opacity-50 transition-opacity duration-300 ease-in-out'
+              }`}
           />
+          <Button
+            onClick={() => {
+              const link = document.createElement('a');
+              link.href = '/assets/links.png';
+              link.download = 'jelius-links-qr.png';
+              link.click();
+            }}
+            size={"icon"}
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out hover:bg-secondary"
+            variant="secondary"
+          >
+            <DownloadIcon />
+          </Button>
         </div>
         {/* </div> */}
 
